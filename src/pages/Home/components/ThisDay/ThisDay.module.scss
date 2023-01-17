@@ -1,0 +1,42 @@
+@import "src/styles/variables";
+
+.container {
+  padding: 20px;
+  max-width: 400px;
+  width: 100%;
+  background: $light-bg;
+  -webkit-box-shadow: $box-shadow;
+  -moz-box-shadow: $box-shadow;
+  box-shadow: $box-shadow ;
+  border-radius: $border-radius;
+}
+
+.top_block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 30px;
+
+  svg {
+    width: 119px;
+    height: 119px;
+  }
+
+  .temp {
+    font-size: 98px;
+    color: $primary-col;
+  }
+
+  .today {
+    font-size: 40px;
+    color: $lite-col;
+  }
+}
+
+.bottom_block {
+  .time, .city {
+    color: $base-color;
+    font-size: 25px;
+  }
+}
