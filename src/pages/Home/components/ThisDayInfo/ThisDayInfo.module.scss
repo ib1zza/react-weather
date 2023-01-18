@@ -1,0 +1,59 @@
+@import "src/styles/variables";
+
+.container {
+
+  position: relative;
+  padding: 40px;
+  max-width: 750px;
+  width: 100%;
+  background-color: $light-bg;
+  -webkit-box-shadow: $box-shadow;
+  -moz-box-shadow: $box-shadow;
+  box-shadow: $box-shadow;
+  border-radius: $border-radius;
+
+  img {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  .items {
+
+  }
+
+  .item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+
+    &:not(:last-of-type) {
+      margin-bottom: 25px;
+    }
+    .indicator, .indicator__name {
+      margin-right: 20px;
+    }
+    .indicator {
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #fff;
+      border-radius: 50%;
+
+      -webkit-box-shadow: 1px 4px 10px -1px rgba(21, 147, 255, 0.2);
+      -moz-box-shadow:  1px 4px 10px -1px rgba(21, 147, 255, 0.2);
+      box-shadow: 1px 4px 10px -1px rgba(21, 147, 255, 0.2);
+      &__name {
+
+        color: $base-color;
+      }
+
+      &__value {
+        color: $lite-col;
+      }
+    }
+  }
+}
