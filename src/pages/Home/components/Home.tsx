@@ -2,6 +2,7 @@ import React from "react";
 import s from "./Home.module.scss";
 import ThisDay from "./ThisDay/ThisDay";
 import ThisDayInfo from "./ThisDayInfo/ThisDayInfo";
+import Days from "./Days/Days";
 const Home = () => {
   return (
     <div className={s.home}>
@@ -9,6 +10,7 @@ const Home = () => {
         <ThisDay />
         <ThisDayInfo />
       </div>
+      <Days />
     </div>
   );
 };
