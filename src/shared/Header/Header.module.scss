@@ -1,3 +1,5 @@
+@import "src/styles/variables";
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -7,7 +9,7 @@
 
   .wrapper {
     display: flex;
-
+    align-items: center;
     .logo {
       svg {
         width: 65px;
@@ -19,6 +21,7 @@
       font-size: 25px;
       text-transform: uppercase;
       font-weight: bold;
+      color: $primary-col;
     }
 
     .change_theme, .logo {

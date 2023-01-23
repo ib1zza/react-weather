@@ -5,11 +5,13 @@ import Home from "./pages/Home/components/Home";
 import MonthStatistics from "./pages/MonthStatistics/components/MonthStatistics";
 import Header from "./shared/Header/Header";
 import Wrapper from "./shared/Wrapper/Wrapper";
+import Popup from "./shared/Popup/Popup";
 
 function App() {
   return (
     <div className="App">
       <Wrapper>
+        {/*<Popup />*/}
         <Header />
         <Routes>
           <Route path={AppRoute.HOME} element={<Home />} />

@@ -6,7 +6,7 @@
   flex-wrap: wrap;
   padding: 20px;
   width: 100%;
-  background-color: $light-bg;
+  background-color: var(--components-background-default);
   box-shadow: $box-shadow;
   border-radius: 0 0 $border-radius $border-radius;
 }
@@ -14,7 +14,7 @@
 .card {
   display: flex;
   flex-direction: column;
-  background: rgba(71, 147, 255, 0.2);
+  background: var(--card-background-default);
   border-radius: 10px;
   padding: 10px;
   width: 150px;
@@ -25,14 +25,15 @@
   transition: all 0.3s;
   cursor: pointer;
   &:hover {
-    -webkit-box-shadow: 0 3px 20px rgba(147, 133, 133, 0.28);
-    -moz-box-shadow: 0 3px 20px rgba(147, 133, 133, 0.28);
-    box-shadow: 0 3px 20px rgba(147, 133, 133, 0.28);
+    -webkit-box-shadow: var(--card-shadow-default);
+    -moz-box-shadow: var(--card-shadow-default);
+    box-shadow: var(--card-shadow-default);
   }
   .day {
     &__name {
       margin-bottom: 7px;
       font-size: 18px;
+      color: var(--text-color-default);
     }
 
     &__date {
@@ -47,6 +48,7 @@
 
     &__temp_day {
       font-size: 18px;
+      color: var(--text-color-default);
     }
 
     &__temp_night {
@@ -73,9 +75,9 @@
     box-shadow: 2px 5px 25px -3px rgba(180, 180, 180, 0.25);
     border-radius: 5px;
     padding: 9px 20px;
-    background-color: $light-bg;
+    background-color: var(--components-background-default);
     margin-right: 15px;
-    color: $lite-col;
+    color: var(--text-color-default);
     font-size: 19px;
     display: flex;
     align-items: center;

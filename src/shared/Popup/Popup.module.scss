@@ -1,0 +1,85 @@
+@import "src/styles/variables";
+
+.popup {
+  position: absolute;
+  top: calc(50% - 150px);;
+  left: calc(50% - 375px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px;
+  max-width: 750px;
+  width: 100%;
+  background-color: $light-bg;
+  -webkit-box-shadow: $box-shadow;
+  -moz-box-shadow: $box-shadow;
+  box-shadow: $box-shadow;
+  border-radius: $border-radius;
+
+}
+
+.blur {
+  position: fixed;
+  z-index: 199;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #000000;
+  opacity: 0.25;
+}
+
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+
+  svg {
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s ;
+    -ms-transition: all 0.3s ;
+    -o-transition: all 0.3s ;
+    transition: all 0.3s ;
+  }
+  &:hover {
+    svg {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+
+.day {
+
+  &>*:not(:last-child) {
+    margin-bottom: 12px;
+  }
+  &__temp {
+    font-weight: 500;
+    font-size: 60px;
+    color: $primary-col;
+  }
+
+  &__name {
+    font-size: 25px;
+    line-height: 30px;
+    color: #000;
+  }
+
+  &__img {
+    height: 53px;
+    width: 53px;
+  }
+
+
+  &__bottom {
+    font-size: 15px;
+    color: $base-color;
+    &__time {
+
+    }
+  }
+}

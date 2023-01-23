@@ -4,7 +4,7 @@
   padding: 20px;
   max-width: 400px;
   width: 100%;
-  background: $light-bg;
+  background: var(--components-background-default );
   -webkit-box-shadow: $box-shadow;
   -moz-box-shadow: $box-shadow;
   box-shadow: $box-shadow ;
@@ -30,7 +30,7 @@
 
   .today {
     font-size: 40px;
-    color: $lite-col;
+    color: var(--text-color-default);
   }
 }
 
