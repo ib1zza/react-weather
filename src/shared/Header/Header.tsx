@@ -4,6 +4,7 @@ import GlobalSvgSelector from "../../assets/icons/global/GlobalSvgSelector";
 import Select from "react-select";
 import { useTheme } from "../../hooks/useTheme";
 import { Theme } from "../../context/ThemeContext";
+import Search from "./Search/Search";
 
 const Header = () => {
   const theme = useTheme();
@@ -35,12 +36,15 @@ const Header = () => {
   }
   return (
     <header className={s.header}>
-      <div className={s.wrapper}>
+      <div className={s.wrapper + " " + s.logoBlock}>
         <div className={s.logo}>
           <GlobalSvgSelector id={"header-logo"} />
         </div>
         <h2 className={s.heading}>React weather</h2>
       </div>
+
+      <Search />
+
       <div className={s.wrapper}>
         <div className={s.change_theme} onClick={changeTheme}>
           <GlobalSvgSelector id={"change-theme"} />

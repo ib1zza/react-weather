@@ -15,6 +15,7 @@ function App() {
         <Header />
         <Routes>
           <Route path={AppRoute.HOME} element={<Home />} />
+          <Route path={AppRoute.HOME + "/:city"} element={<Home />} />
           <Route
             path={AppRoute.MONTH_STATISTICS}
             element={<MonthStatistics />}

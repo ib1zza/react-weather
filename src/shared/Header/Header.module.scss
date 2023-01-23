@@ -7,7 +7,44 @@
   margin-top: 20px;
   margin-bottom: 30px;
 
+  .search {
+    margin: 0 20px;
+    flex:  590px 1 1;
+    display: flex;
+    position: relative;
+    color: var(#{--text-color-default});
+    border-radius: $border-radius;
+
+    box-shadow: $box-shadow;
+
+    svg {
+      position: absolute;
+      top: calc(50% - 13px);
+      left: 20px;
+      height: 26px;
+      color: #4793ff;
+    }
+
+    input {
+      padding-left: 55px;
+      font-size: 20px;
+      height: 60px;
+      width: 100%;
+      border-radius: $border-radius;
+      color: var(#{--text-color-default});
+
+      &::placeholder {
+        color:  var(#{--text-color-default});
+        opacity: 0.6;
+      }
+    }
+  }
+
   .wrapper {
+    &.logoBlock {
+      flex-basis: 315px;
+      flex-shrink: 0;
+    }
     display: flex;
     align-items: center;
     .logo {
