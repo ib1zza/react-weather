@@ -51,3 +51,79 @@ export interface Weather {
   name: string;
   cod: number;
 }
+
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+interface DailyMain {
+  temp: number;
+  feels_like: number;
+  temp_min: number;
+  temp_max: number;
+  pressure: number;
+  sea_level: number;
+  grnd_level: number;
+  humidity: number;
+  temp_kf: number;
+}
+
+interface DailyWeather {
+  id: number;
+  main: Main;
+  description: string;
+  icon: string;
+}
+
+export interface DailyClouds {
+  all: number;
+}
+
+export interface DailyWind {
+  speed: number;
+  deg: number;
+  gust: number;
+}
+
+export interface DailySys {
+  pod: string;
+}
+
+export interface DailyRain {
+  "3h": number;
+}
+
+export interface DailyList {
+  dt: number;
+  main: DailyMain;
+  weather: DailyWeather[];
+  clouds: DailyClouds;
+  wind: DailyWind;
+  visibility: number;
+  pop: number;
+  sys: DailySys;
+  dt_txt: string;
+  rain: DailyRain;
+}
+
+export interface DailyCoord {
+  lat: number;
+  lon: number;
+}
+
+export interface DailyCity {
+  id: number;
+  name: string;
+  coord: DailyCoord;
+  country: string;
+  population: number;
+  timezone: number;
+  sunrise: number;
+  sunset: number;
+}
+
+export interface DailyForecast {
+  cod: string;
+  message: number;
+  cnt: number;
+  list: DailyList[];
+  city: DailyCity;
+}

@@ -1,8 +1,15 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Weather } from "../types/types";
-import { AxiosResponse } from "axios";
+import {
+  AnyAction,
+  createAsyncThunk,
+  createSlice,
+  PayloadAction,
+} from "@reduxjs/toolkit";
+import { DailyForecast, Weather } from "../types/types";
+import { AxiosError, AxiosResponse } from "axios";
+import { api } from "../../axios";
 
 const initialState: CurrentWeather = {
+  dailyForecast: null,
   weather: null,
   isLoading: false,
   response: {
@@ -11,6 +18,7 @@ const initialState: CurrentWeather = {
   },
 };
 type CurrentWeather = {
+  dailyForecast: DailyForecast | null;
   weather: Weather | null;
   isLoading: boolean;
   response: {
@@ -18,6 +26,37 @@ type CurrentWeather = {
     message: string;
   };
 };
+
+export const fetchCurrentWeather = createAsyncThunk<
+  Weather,
+  string,
+  { rejectValue: string }
+>(
+  "weather/fetchCurrentWeather",
+  async function (cityName, { rejectWithValue }) {
+    return await api
+      .get<Weather>(`/weather?q=${cityName}`)
+      .then((res) => res.data)
+      .catch(function (error: AxiosError) {
+        console.log(error.toJSON());
+        return rejectWithValue(error.message);
+      });
+  }
+);
+
+export const fetchDailyForecast = createAsyncThunk<
+  DailyForecast,
+  string,
+  { rejectValue: string }
+>("weather/fetchDailyForecast", async function (cityName, { rejectWithValue }) {
+  return await api
+    .get<DailyForecast>(`/forecast?q=${cityName}`)
+    .then((res) => res.data)
+    .catch(function (error: AxiosError) {
+      console.log(error.toJSON());
+      return rejectWithValue(error.message);
+    });
+});
 
 export const CurrentWeatherSlice = createSlice({
   initialState,
@@ -48,6 +87,29 @@ export const CurrentWeatherSlice = createSlice({
       };
     },
   },
+
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchCurrentWeather.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchCurrentWeather.fulfilled, (state, action) => {
+        state.weather = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(fetchDailyForecast.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchDailyForecast.fulfilled, (state, action) => {
+        state.dailyForecast = action.payload;
+        state.isLoading = false;
+      })
+      .addMatcher(isError, (state, action: PayloadAction<string>) => {
+        console.log("Error:" + action.payload);
+        state.response.message = action.payload;
+        state.isLoading = false;
+      });
+  },
 });
 
 export const {
@@ -55,5 +117,9 @@ export const {
   fetchCurrentWeatherSuccess,
   fetchCurrentWeatherError,
 } = CurrentWeatherSlice.actions;
+
+const isError = (action: AnyAction) => {
+  return action.type.endsWith("rejected");
+};
 
 export default CurrentWeatherSlice.reducer;

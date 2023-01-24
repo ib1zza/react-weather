@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import s from "../Header.module.scss";
 import GlobalSvgSelector from "../../../assets/icons/global/GlobalSvgSelector";
-import { useAppDispatch } from "../../../hooks/store";
+
 import { useNavigate } from "react-router-dom";
 const Search = () => {
   const [query, setQuery] = useState<string>("");

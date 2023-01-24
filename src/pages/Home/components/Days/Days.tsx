@@ -2,8 +2,7 @@ import React from "react";
 import s from "./Days.module.scss";
 import Card from "./Card";
 import Tabs from "./Tabs";
-
-interface Props {}
+import { DailyForecast } from "../../../../store/types/types";
 
 export interface Day {
   day: string;
@@ -14,7 +13,8 @@ export interface Day {
   info: string;
 }
 
-export const Days = (props: Props) => {
+export const Days: React.FC<{ forecast: DailyForecast }> = ({ forecast }) => {
+  const {} = forecast;
   const days: Day[] = [
     {
       day: "Сегодня",

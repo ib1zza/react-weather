@@ -4,17 +4,25 @@ import ThisDay from "./ThisDay/ThisDay";
 import ThisDayInfo from "./ThisDayInfo/ThisDayInfo";
 import Days from "./Days/Days";
 import { useAppDispatch, useAppSelector } from "../../../hooks/store";
-import { fetchCurrentWeather } from "../../../store/thunks/fetchCurrentWeather";
-import { stat } from "fs";
+import {
+  fetchCurrentWeather,
+  fetchDailyForecast,
+} from "../../../store/slices/WeatherSlice";
 import { useParams } from "react-router-dom";
+import { DailyForecast } from "../../../store/types/types";
 const Home = () => {
   const { city } = useParams();
   const dispatch = useAppDispatch();
-  const weather = useAppSelector(
-    (state) => state.currentWeatherSliceReducer.weather
+  const { weather, dailyForecast } = useAppSelector(
+    (state) => state.currentWeatherSliceReducer
   );
   useEffect(() => {
     dispatch(fetchCurrentWeather(city || "paris"));
+  }, [city]);
+  useEffect(() => {
+    dispatch(fetchDailyForecast(city || "paris")).then((dailyForecast) =>
+      console.log(dailyForecast)
+    );
   }, [city]);
   return (
     <div className={s.home}>
@@ -22,7 +30,7 @@ const Home = () => {
         {weather && <ThisDay weather={weather} />}
         {weather && <ThisDayInfo weather={weather} />}
       </div>
-      <Days />
+      {dailyForecast && <Days forecast={dailyForecast} />}
     </div>
   );
 };
