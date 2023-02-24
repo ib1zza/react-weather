@@ -1,0 +1,93 @@
+@import "src/styles/variables";
+
+.forecast {
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  background-color: var(--components-background-default);
+  color: var(--text-color-default);
+  padding: 20px;
+  &:not(:last-child) {
+    margin-bottom: 40px;
+  }
+  .date_info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .day_of_month {
+      display: flex;
+      align-items: center;
+
+      .dayname {
+        font-size: 55px;
+
+        &_weekend {
+          color: red;
+        }
+      }
+
+      flex-basis: 160px;
+
+      .heading_desc {
+
+        display: flex;
+        flex-direction: column;
+        font-size: 14px;
+        padding-left: 16px;
+        color: $base-color;
+        line-height: 20px;
+      }
+    }
+
+    .heading {
+      flex-basis: 230px;
+      color: $base-color;
+    }
+  }
+
+  .periods__container {
+    border-top: 1px solid transparentize($base-color, 0.7);
+
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+
+
+
+    .period__container {
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+
+      .period__date {
+        flex-basis: 160px;
+
+        &__dayperiod {
+          font-size: 12px;
+          color: $base-color;
+        }
+
+        &__hours {
+          font-size: 14px;
+        }
+      }
+
+      .period__temp {
+        flex-basis: 230px;
+      }
+
+      .period__weather {
+        flex-basis: 230px;
+      }
+
+      .period__wind {
+        flex-basis: 230px;
+      }
+    }
+  }
+
+
+}

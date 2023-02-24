@@ -120,7 +120,7 @@ export interface DailyCity {
   sunset: number;
 }
 
-export interface DailyForecast {
+export interface IDailyForecast {
   cod: string;
   message: number;
   cnt: number;

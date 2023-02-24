@@ -4,7 +4,7 @@ import {
   createSlice,
   PayloadAction,
 } from "@reduxjs/toolkit";
-import { DailyForecast, Weather } from "../types/types";
+import { IDailyForecast, Weather } from "../types/types";
 import { AxiosError, AxiosResponse } from "axios";
 import { api } from "../../axios";
 
@@ -18,7 +18,7 @@ const initialState: CurrentWeather = {
   },
 };
 type CurrentWeather = {
-  dailyForecast: DailyForecast | null;
+  dailyForecast: IDailyForecast | null;
   weather: Weather | null;
   isLoading: boolean;
   response: {
@@ -45,12 +45,12 @@ export const fetchCurrentWeather = createAsyncThunk<
 );
 
 export const fetchDailyForecast = createAsyncThunk<
-  DailyForecast,
+  IDailyForecast,
   string,
   { rejectValue: string }
 >("weather/fetchDailyForecast", async function (cityName, { rejectWithValue }) {
   return await api
-    .get<DailyForecast>(`/forecast?q=${cityName}`)
+    .get<IDailyForecast>(`/forecast?q=${cityName} `)
     .then((res) => res.data)
     .catch(function (error: AxiosError) {
       console.log(error.toJSON());

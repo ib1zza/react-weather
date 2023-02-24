@@ -9,7 +9,7 @@ import {
   fetchDailyForecast,
 } from "../../../store/slices/WeatherSlice";
 import { useParams } from "react-router-dom";
-import { DailyForecast } from "../../../store/types/types";
+import DailyForecast from "./DailyForecast/DailyForecast";
 const Home = () => {
   const { city } = useParams();
   const dispatch = useAppDispatch();
@@ -18,8 +18,6 @@ const Home = () => {
   );
   useEffect(() => {
     dispatch(fetchCurrentWeather(city || "paris"));
-  }, [city]);
-  useEffect(() => {
     dispatch(fetchDailyForecast(city || "paris")).then((dailyForecast) =>
       console.log(dailyForecast)
     );
@@ -30,7 +28,10 @@ const Home = () => {
         {weather && <ThisDay weather={weather} />}
         {weather && <ThisDayInfo weather={weather} />}
       </div>
-      {dailyForecast && <Days forecast={dailyForecast} />}
+      {dailyForecast && <Days />}
+      <div className={s.forecast}>
+        {dailyForecast && <DailyForecast forecast={dailyForecast} />}
+      </div>
     </div>
   );
 };
