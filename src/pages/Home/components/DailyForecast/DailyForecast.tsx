@@ -10,9 +10,9 @@ const DailyForecast: React.FC<{ forecast: IDailyForecast }> = ({
   const newList: { [x: string]: { list: DailyList[] } } = list.reduce(
     (previousValue, currentValue, currentIndex, array) => {
       const date = currentValue.dt_txt;
-      console.log("date", date.split(" ")[0]);
+      // console.log("date", date.split(" ")[0]);
       const key = date.split(" ")[0];
-      console.log(date);
+      // console.log(date);
 
       if (previousValue.hasOwnProperty(key)) {
         // @ts-ignore

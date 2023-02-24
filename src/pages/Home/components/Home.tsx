@@ -18,8 +18,8 @@ const Home = () => {
   );
   useEffect(() => {
     dispatch(fetchCurrentWeather(city || "paris"));
-    dispatch(fetchDailyForecast(city || "paris")).then((dailyForecast) =>
-      console.log(dailyForecast)
+    dispatch(fetchDailyForecast(city || "paris")).then(
+      (dailyForecast) => {} // console.log(dailyForecast)
     );
   }, [city]);
   return (

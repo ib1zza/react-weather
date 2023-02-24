@@ -5,10 +5,16 @@ import {
   PayloadAction,
 } from "@reduxjs/toolkit";
 import { IDailyForecast, Weather } from "../types/types";
-import { AxiosError, AxiosResponse } from "axios";
+import { AxiosError } from "axios";
 import { api } from "../../axios";
+import {
+  getLocalStorageHistory,
+  LocalStorageKey,
+  setLocalStorageHistory,
+} from "../helpers";
 
 const initialState: CurrentWeather = {
+  history: getLocalStorageHistory(),
   dailyForecast: null,
   weather: null,
   isLoading: false,
@@ -18,6 +24,7 @@ const initialState: CurrentWeather = {
   },
 };
 type CurrentWeather = {
+  history: string[];
   dailyForecast: IDailyForecast | null;
   weather: Weather | null;
   isLoading: boolean;
@@ -61,32 +68,7 @@ export const fetchDailyForecast = createAsyncThunk<
 export const CurrentWeatherSlice = createSlice({
   initialState,
   name: "currentWeather",
-  reducers: {
-    fetchCurrentWeatherStart(state) {
-      state.isLoading = true;
-    },
-    fetchCurrentWeatherSuccess(
-      state,
-      action: PayloadAction<AxiosResponse<Weather>>
-    ) {
-      state.weather = action.payload.data;
-      state.isLoading = false;
-      state.response = {
-        status: action.payload.status,
-        message: action.payload.statusText,
-      };
-    },
-    fetchCurrentWeatherError(
-      state,
-      action: PayloadAction<AxiosResponse<Weather>>
-    ) {
-      state.isLoading = false;
-      state.response = {
-        status: action.payload.status,
-        message: action.payload.statusText,
-      };
-    },
-  },
+  reducers: {},
 
   extraReducers: (builder) => {
     builder
@@ -95,6 +77,14 @@ export const CurrentWeatherSlice = createSlice({
       })
       .addCase(fetchCurrentWeather.fulfilled, (state, action) => {
         state.weather = action.payload;
+
+        if (!state.history.includes(action.payload.name)) {
+          state.history.push(action.payload.name);
+          setLocalStorageHistory(
+            Array.isArray(state.history) ? [...state.history] : [state.history]
+          );
+        }
+
         state.isLoading = false;
       })
       .addCase(fetchDailyForecast.pending, (state) => {
@@ -112,11 +102,7 @@ export const CurrentWeatherSlice = createSlice({
   },
 });
 
-export const {
-  fetchCurrentWeatherStart,
-  fetchCurrentWeatherSuccess,
-  fetchCurrentWeatherError,
-} = CurrentWeatherSlice.actions;
+export const {} = CurrentWeatherSlice.actions;
 
 const isError = (action: AnyAction) => {
   return action.type.endsWith("rejected");

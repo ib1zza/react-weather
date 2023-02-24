@@ -5,14 +5,21 @@ import Select from "react-select";
 import { useTheme } from "../../hooks/useTheme";
 import { Theme } from "../../context/ThemeContext";
 import Search from "./Search/Search";
+import { useAppDispatch, useAppSelector } from "../../hooks/store";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
   const theme = useTheme();
-  const options = [
-    { value: "city-1", label: "Санкт-Петербург" },
-    { value: "city-2", label: "Москва" },
-    { value: "city-3", label: "Новгород" },
-  ];
+  let { history } = useAppSelector((state) => state.currentWeatherSliceReducer);
+  history = [...history].reverse();
+
+  const options = history.length
+    ? history.map((el) => ({
+        value: el,
+        label: el[0].toUpperCase().concat(el.slice(1)),
+      }))
+    : [];
 
   const colourStyles = {
     control: (styles: any) => ({
@@ -34,6 +41,7 @@ const Header = () => {
   function changeTheme() {
     theme.changeTheme(theme.theme === Theme.LIGHT ? Theme.DARK : Theme.LIGHT);
   }
+
   return (
     <header className={s.header}>
       <div className={s.wrapper + " " + s.logoBlock}>
@@ -53,6 +61,10 @@ const Header = () => {
           defaultValue={options[0]}
           styles={colourStyles}
           options={options}
+          placeholder={options[0]?.label}
+          closeMenuOnScroll={true}
+          // @ts-ignore
+          onChange={(newValue) => navigate(newValue.value, { replace: true })}
         />
       </div>
     </header>
