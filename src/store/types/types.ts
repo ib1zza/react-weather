@@ -68,7 +68,7 @@ interface DailyMain {
 
 interface DailyWeather {
   id: number;
-  main: Main;
+  main: string;
   description: string;
   icon: string;
 }
@@ -83,9 +83,9 @@ export interface DailyWind {
   gust: number;
 }
 
-export interface DailySys {
-  pod: string;
-}
+export type DailySys = {
+  pod: "n" | "d";
+};
 
 export interface DailyRain {
   "3h": number;

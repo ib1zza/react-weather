@@ -11,6 +11,11 @@ const ThisDay: React.FC<Props> = ({ weather }) => {
   const [time, setTime] = useState<string>(
     new Date().toTimeString().split(" ")[0].split(":").slice(0, 2).join(":")
   );
+  const icon_url =
+    "http://openweathermap.org/img/wn/" +
+    weather.weather[0].icon.slice(0, -1) +
+    "d" +
+    "@2x.png";
   useEffect(() => {
     const i = setInterval(
       () =>
@@ -33,7 +38,7 @@ const ThisDay: React.FC<Props> = ({ weather }) => {
           <div className={s.temp}>{Math.round(weather.main.temp) + "°"}</div>
           <div className={s.today}>Сегодня</div>
         </div>
-        <GlobalSvgSelector id={"sun"} />
+        <img src={icon_url} alt="" />
       </div>
       <div className={s.bottom_block}>
         <div className={s.time}>Время: {time}</div>

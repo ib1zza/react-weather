@@ -73,16 +73,28 @@ const DailyForecast: React.FC<{ forecast: IDailyForecast }> = ({
           </div>
 
           <div className={s.periods__container}>
-            {newList[date].list.map((el: DailyList, index, array) => (
+            {newList[date].list.map((el: DailyList) => (
               <div className={s.period__container} key={el.dt}>
                 <div className={s.period__date}>
+                  <div className={s.period__date__image}>
+                    <img
+                      src={
+                        "http://openweathermap.org/img/wn/" +
+                        el.weather[0].icon.slice(0, -1) +
+                        "d" +
+                        "@2x.png"
+                      }
+                      alt="icon"
+                    />
+                  </div>
                   <div className={s.period__date__dayperiod}>
                     {getDayPeriodFromDate(el.dt_txt)}
                   </div>
-                  <div className={s.period__date__hours}></div>
-                  {getHoursFromDate(el.dt_txt) +
-                    " - " +
-                    getHoursFromDate(el.dt_txt, 3)}
+                  <div className={s.period__date__hours}>
+                    {getHoursFromDate(el.dt_txt) +
+                      " - " +
+                      getHoursFromDate(el.dt_txt, 3)}
+                  </div>
                 </div>
                 <div className={s.period__temp}>
                   <span className={s.period__temp__temperature}>
@@ -99,9 +111,7 @@ const DailyForecast: React.FC<{ forecast: IDailyForecast }> = ({
                   <span className={s.period__wind__speed}>
                     {el.wind.speed.toFixed(0) + " м/с "}
                   </span>
-                  <span className={s.period__wind__description}>
-                    {" легкий ветер"}
-                  </span>
+                  <span className={s.period__wind__description}></span>
                 </div>
               </div>
             ))}

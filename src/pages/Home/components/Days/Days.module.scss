@@ -34,6 +34,10 @@
       margin-bottom: 7px;
       font-size: 18px;
       color: var(--text-color-default);
+
+      &_weekend {
+        color: #ff5252;
+      }
     }
 
     &__date {
@@ -44,6 +48,15 @@
 
     &__img {
       margin-bottom: 12px;
+      height: 60px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      img {
+
+        object-fit: cover;
+      }
     }
 
     &__temp_day {
