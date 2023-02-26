@@ -3,7 +3,8 @@ import s from "./Days.module.scss";
 import Card from "./Card";
 import Tabs from "./Tabs";
 import { DailyList, IDailyForecast } from "../../../../store/types/types";
-import { el } from "date-fns/locale";
+
+import { createForecastObjectFromServerForecast } from "../../../../helpers";
 
 export interface Day {
   day: string;
@@ -13,36 +14,19 @@ export interface Day {
   temp_night: string | number;
   info: string;
 }
+interface Forecast {
+  [x: string]: { list: DailyList[] };
+}
 
 interface Props {
-  forecast: IDailyForecast;
+  forecast: Forecast;
 }
 
 export const Days: React.FC<Props> = ({ forecast }) => {
-  const { list } = forecast;
-  const newList: { [x: string]: { list: DailyList[] } } = list.reduce(
-    (previousValue, currentValue, currentIndex, array) => {
-      const date = currentValue.dt_txt;
-      // console.log("date", date.split(" ")[0]);
-      const key = date.split(" ")[0];
-      // console.log(date);
-
-      if (previousValue.hasOwnProperty(key)) {
-        // @ts-ignore
-        previousValue[key].list.push(currentValue);
-      } else {
-        // @ts-ignore
-        previousValue[key] = { list: [currentValue] };
-      }
-      return previousValue;
-    },
-    {}
-  );
-
-  const displayData = Object.keys(newList).reduce<Day[]>((acc, date) => {
+  const displayData = Object.keys(forecast).reduce<Day[]>((acc, date) => {
     const day_info = date;
 
-    const list = newList[date].list;
+    const list = forecast[date].list;
     const lastElement = list[list.length - 1];
     const list_day = list.filter((el) => el.sys.pod === "d") || [lastElement];
 
@@ -67,70 +51,17 @@ export const Days: React.FC<Props> = ({ forecast }) => {
     return acc;
   }, []);
 
-  const days: Day[] = [
-    {
-      day: "Сегодня",
-      day_info: "28 авг",
-      icon_id: "sun",
-      temp_day: "+18",
-      temp_night: "+15",
-      info: "Облачно",
-    },
-    {
-      day: "Завтра",
-      day_info: "29 авг",
-      icon_id: "small_rain_sun",
-      temp_day: "+18",
-      temp_night: "+15",
-      info: "небольшой дождь и солнце",
-    },
-    {
-      day: "Ср",
-      day_info: "30 авг",
-      icon_id: "small_rain",
-      temp_day: "+18",
-      temp_night: "+15",
-      info: "небольшой дождь",
-    },
-    {
-      day: "Чт",
-      day_info: "28 авг",
-      icon_id: "mainly_cloudy",
-      temp_day: "+18",
-      temp_night: "+15",
-      info: "Облачно",
-    },
-    {
-      day: "Пт",
-      day_info: "28 авг",
-      icon_id: "rain",
-      temp_day: "+18",
-      temp_night: "+15",
-      info: "Облачно",
-    },
-    {
-      day: "Сб",
-      day_info: "28 авг",
-      icon_id: "sun",
-      temp_day: "+18",
-      temp_night: "+15",
-      info: "Облачно",
-    },
-    {
-      day: "Вс",
-      day_info: "28 авг",
-      icon_id: "sun",
-      temp_day: "+18",
-      temp_night: "+15",
-      info: "Облачно",
-    },
-  ];
   return (
     <>
       <Tabs />
       <div className={s.days}>
         {displayData.map((day) => (
-          <Card day={day} key={day.day} />
+          <Card
+            day={day}
+            key={day.day}
+            forecast={forecast[day.day].list}
+            date={day.day}
+          />
         ))}
       </div>
     </>

@@ -8,9 +8,6 @@ const Tabs = () => {
     {
       value: "На 10 дней",
     },
-    {
-      value: "На месяц",
-    },
   ];
   return (
     <div className={s.tabs}>
@@ -21,7 +18,7 @@ const Tabs = () => {
           </div>
         ))}
       </div>
-      <div className={s.cancel}>Отменить</div>
+      {/*<div className={s.cancel}>Отменить</div>*/}
     </div>
   );
 };
