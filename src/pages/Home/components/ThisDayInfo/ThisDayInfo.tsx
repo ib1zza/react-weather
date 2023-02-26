@@ -53,7 +53,7 @@ const ThisDayInfo: React.FC<Props> = ({ weather }) => {
           <ThisDayItem item={item} key={item.name} />
         ))}
       </div>
-      <img src={cloud} alt="cloud" />
+      {/*<img src={cloud} alt="cloud" />*/}
     </div>
   );
 };

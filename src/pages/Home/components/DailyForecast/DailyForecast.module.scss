@@ -1,5 +1,11 @@
 @import "src/styles/variables";
 
+$first-col-flex-basis: 200px;
+$second-col-flex-basis: 230px;
+$third-col-flex-basis: 230px;
+$fourth-col-flex-basis: 150px;
+
+
 .forecast {
   border-radius: $border-radius;
   box-shadow: $box-shadow;
@@ -14,10 +20,10 @@
     align-items: center;
     justify-content: space-between;
 
-    .day_of_month {
+    .heading__day {
       display: flex;
       align-items: center;
-
+      flex-basis: $first-col-flex-basis;
       .dayname {
         font-size: 55px;
 
@@ -26,10 +32,9 @@
         }
       }
 
-      flex-basis: 160px;
+
 
       .heading_desc {
-
         display: flex;
         flex-direction: column;
         font-size: 14px;
@@ -37,13 +42,20 @@
         color: $base-color;
         line-height: 20px;
       }
-    }
 
-    .heading {
-      flex-basis: 230px;
-      color: $base-color;
+
+    }
+    .heading__temperature {
+      flex-basis: $second-col-flex-basis;
+    }
+    .heading__weather {
+      flex-basis: $third-col-flex-basis;
+    }
+    .heading__wind {
+      flex-basis: $fourth-col-flex-basis;
     }
   }
+
 
   .periods__container {
     border-top: 1px solid transparentize($base-color, 0.7);
@@ -63,15 +75,16 @@
 
 
       .period__date {
+        flex-basis: $first-col-flex-basis;
         display: grid;
-        grid-auto-columns: 40px 1fr;
+        grid-auto-columns: 60px 1fr;
         grid-auto-rows: 1fr 1fr;
         grid-template-areas: "img dayperiod" "img hours";
 
-        flex-basis: 160px;
+
         &__image {
           padding-right: 10px;
-          width: 40px;
+          width: 60px;
           grid-area: img;
           img {
             width: 100%;
@@ -90,18 +103,16 @@
       }
 
       .period__temp {
-        flex-basis: 230px;
+        flex-basis: $second-col-flex-basis;
       }
 
       .period__weather {
-        flex-basis: 230px;
+        flex-basis: $third-col-flex-basis;
       }
 
       .period__wind {
-        flex-basis: 230px;
+        flex-basis: $fourth-col-flex-basis;
       }
     }
   }
-
-
 }
