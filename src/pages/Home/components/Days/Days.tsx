@@ -1,7 +1,7 @@
 import React from "react";
 import s from "./Days.module.scss";
 import Card from "./Card";
-import Tabs from "./Tabs";
+import Tabs from "../Tabs/Tabs";
 import { DailyList, IDailyForecast } from "../../../../store/types/types";
 
 import { createForecastObjectFromServerForecast } from "../../../../helpers";
@@ -52,19 +52,16 @@ export const Days: React.FC<Props> = ({ forecast }) => {
   }, []);
 
   return (
-    <>
-      <Tabs />
-      <div className={s.days}>
-        {displayData.map((day) => (
-          <Card
-            day={day}
-            key={day.day}
-            forecast={forecast[day.day].list}
-            date={day.day}
-          />
-        ))}
-      </div>
-    </>
+    <div className={s.days}>
+      {displayData.map((day) => (
+        <Card
+          day={day}
+          key={day.day}
+          forecast={forecast[day.day].list}
+          date={day.day}
+        />
+      ))}
+    </div>
   );
 };
 

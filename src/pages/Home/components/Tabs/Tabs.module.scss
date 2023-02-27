@@ -1,0 +1,41 @@
+@import "src/styles/variables";
+
+.tabs {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+  margin-bottom: 20px;
+
+  .tab, .cancel {
+    box-shadow: 2px 5px 25px -3px rgba(180, 180, 180, 0.25);
+    border-radius: 5px;
+    padding: 9px 20px;
+    background-color: var(--components-background-default);
+    margin-right: 15px;
+    color: var(--text-color-default);
+    font-size: 19px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .selected {
+   border-bottom: 4px solid $primary-col;
+  }
+
+
+  .cancel {
+    margin-right: 0;
+  }
+  &__wrapper {
+    display: flex;
+
+    .tab {
+      &.active {
+        background-color: $primary-col;
+        color: #fff;
+      }
+    }
+  }
+}

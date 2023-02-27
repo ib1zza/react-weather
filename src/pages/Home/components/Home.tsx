@@ -12,6 +12,8 @@ import { useParams } from "react-router-dom";
 
 import ModalForecast from "./Days/ModalForecast/ModalForecast";
 import { createForecastObjectFromServerForecast } from "../../../helpers";
+import DailyForecast from "./DailyForecast/DailyForecast";
+import Tabs from "./Tabs/Tabs";
 
 export const ModalForecastContext = createContext({
   isOpen: false,
@@ -20,6 +22,11 @@ export const ModalForecastContext = createContext({
   setDay: (_: string) => {},
 });
 
+export enum ForecastType {
+  weekly = "weekly",
+  detailed = "10 days detailed",
+}
+
 export const useModalContext = () => useContext(ModalForecastContext);
 
 const Home = () => {
@@ -27,6 +34,9 @@ const Home = () => {
   const dispatch = useAppDispatch();
   const { weather, dailyForecast } = useAppSelector(
     (state) => state.currentWeatherSliceReducer
+  );
+  const [openedPage, setOpenedPage] = useState<ForecastType>(
+    ForecastType.weekly
   );
 
   const [isOpen, setIsOpen] = useState(false);
@@ -49,10 +59,19 @@ const Home = () => {
               {weather && <ThisDay weather={weather} />}
               {weather && <ThisDayInfo weather={weather} />}
             </div>
-            {dailyForecast && <Days forecast={newList} />}
-            {/*<div className={s.forecast}>*/}
-            {/*  {dailyForecast && <DailyForecast forecast={newList} />}*/}
-            {/*</div>*/}
+            <Tabs
+              tabs={[ForecastType.weekly, ForecastType.detailed]}
+              onSelect={(el) => setOpenedPage(el)}
+              current={openedPage}
+            />
+            {openedPage === ForecastType.weekly && dailyForecast && (
+              <Days forecast={newList} />
+            )}
+            {openedPage === ForecastType.detailed && dailyForecast && (
+              <div className={s.forecast}>
+                {dailyForecast && <DailyForecast forecast={newList} />}
+              </div>
+            )}
           </div>
         )}
         {newList && day && isOpen && (

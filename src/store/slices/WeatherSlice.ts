@@ -7,11 +7,7 @@ import {
 import { IDailyForecast, Weather } from "../types/types";
 import { AxiosError } from "axios";
 import { api } from "../../axios";
-import {
-  getLocalStorageHistory,
-  LocalStorageKey,
-  setLocalStorageHistory,
-} from "../helpers";
+import { getLocalStorageHistory, setLocalStorageHistory } from "../helpers";
 
 const initialState: CurrentWeather = {
   history: getLocalStorageHistory(),

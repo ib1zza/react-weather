@@ -5,7 +5,7 @@ import Select from "react-select";
 import { useTheme } from "../../hooks/useTheme";
 import { Theme } from "../../context/ThemeContext";
 import Search from "./Search/Search";
-import { useAppDispatch, useAppSelector } from "../../hooks/store";
+import { useAppSelector } from "../../hooks/store";
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {
