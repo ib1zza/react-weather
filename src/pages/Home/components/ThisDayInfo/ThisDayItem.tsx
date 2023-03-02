@@ -1,7 +1,7 @@
 import React from "react";
 import { Item } from "./ThisDayInfo";
 import s from "./ThisDayInfo.module.scss";
-import GlobalSvgSelector from "../../../../assets/icons/global/GlobalSvgSelector";
+
 import { IndicatorSvgSelector } from "../../../../assets/icons/indicators/IndicatorSvgSelector";
 interface Props {
   item: Item;

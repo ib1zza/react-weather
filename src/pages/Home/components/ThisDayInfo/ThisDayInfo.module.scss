@@ -4,7 +4,8 @@
   position: relative;
   padding: 40px;
   max-width: 750px;
-  width: 100%;
+  flex: 750px 1 1;
+
   background-color: var(--components-background-default);
   -webkit-box-shadow: $box-shadow;
   -moz-box-shadow: $box-shadow;
@@ -35,6 +36,7 @@
   }
 
   .indicator {
+    flex-shrink: 0;
     width: 38px;
     height: 38px;
     display: flex;

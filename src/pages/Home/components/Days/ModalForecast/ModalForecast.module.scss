@@ -10,10 +10,31 @@ $opacity: 0.3;
   right: 0;
   left: 0;
   bottom: 0;
-  &>* {
-    width: 90%;
-  }
+
   z-index: 100;
   background-color: transparentize(#000, $opacity);
+
 }
 
+.content {
+
+  width: 1000px;
+  
+  @media screen and (max-width: 1050px) {
+    width: 100%;
+  }
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  width: 30px;
+  background-color: transparent;
+  cursor: pointer;
+  
+  &:hover {
+    opacity: 0.8;
+  }
+}

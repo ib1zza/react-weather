@@ -2,6 +2,7 @@ import s from "./DailyForecast.module.scss";
 import React from "react";
 import { DailyList } from "../../../../store/types/types";
 import { add, format } from "date-fns";
+import useWindowDimensions from "../../../../hooks/useWindowDimensions";
 
 interface Props {
   dailyList: DailyList;
@@ -20,6 +21,7 @@ const getDayPeriodFromDate = (date: string, hours?: number) => {
 };
 
 const PeriodContainer: React.FC<Props> = ({ dailyList }) => {
+  const { width } = useWindowDimensions();
   return (
     <div className={s.period__container}>
       <div className={s.period__date}>
@@ -56,7 +58,9 @@ const PeriodContainer: React.FC<Props> = ({ dailyList }) => {
       </div>
       <div className={s.period__wind}>
         <span className={s.period__wind__speed}>
-          {dailyList.wind.speed.toFixed(0) + " м/с "}
+          {(width < 800 ? "Ветер " : "") +
+            dailyList.wind.speed.toFixed(0) +
+            " м/с "}
         </span>
         <span className={s.period__wind__description}></span>
       </div>

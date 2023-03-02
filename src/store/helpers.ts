@@ -16,5 +16,5 @@ export const getLocalStorageHistory = (): string[] => {
 };
 
 export const setLocalStorageHistory = (data: string[]): void => {
-  setLocalStorageItem(LocalStorageKey.history, data);
+  setLocalStorageItem<string[]>(LocalStorageKey.history, data);
 };

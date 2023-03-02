@@ -9,7 +9,6 @@ import {
   fetchDailyForecast,
 } from "../../../store/slices/WeatherSlice";
 import { useParams } from "react-router-dom";
-
 import ModalForecast from "./Days/ModalForecast/ModalForecast";
 import { createForecastObjectFromServerForecast } from "../../../helpers";
 import DailyForecast from "./DailyForecast/DailyForecast";
@@ -42,9 +41,6 @@ const Home = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [day, setDay] = useState("");
 
-  useEffect(() => {
-    console.log(isOpen, day);
-  }, [isOpen, day]);
   useEffect(() => {
     dispatch(fetchCurrentWeather(city || "paris"));
     dispatch(fetchDailyForecast(city || "paris"));

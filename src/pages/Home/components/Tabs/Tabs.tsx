@@ -9,7 +9,6 @@ interface Props {
 }
 
 const Tabs: React.FC<Props> = ({ tabs, onSelect, current }) => {
-  console.log(tabs, onSelect);
   return (
     <div className={s.tabs}>
       <div className={s.tabs__wrapper}>

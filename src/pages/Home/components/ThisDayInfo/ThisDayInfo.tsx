@@ -1,5 +1,4 @@
 import React from "react";
-import cloud from "../../../../assets/images/cloud.png";
 import s from "./ThisDayInfo.module.scss";
 import ThisDayItem from "./ThisDayItem";
 import { Weather } from "../../../../store/types/types";
@@ -33,7 +32,7 @@ const ThisDayInfo: React.FC<Props> = ({ weather }) => {
     {
       iconId: "pressure",
       name: "Давление",
-      value: pressure.toFixed(0) + " мм ртутного столба - нормальное",
+      value: pressure.toFixed(0) + " мм ртутного столба",
     },
     {
       iconId: "precipitation",
@@ -53,7 +52,6 @@ const ThisDayInfo: React.FC<Props> = ({ weather }) => {
           <ThisDayItem item={item} key={item.name} />
         ))}
       </div>
-      {/*<img src={cloud} alt="cloud" />*/}
     </div>
   );
 };

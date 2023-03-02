@@ -31,8 +31,6 @@ const Card: React.FC<Props> = ({ day, date, forecast }) => {
   const handleOnClick = () => {
     setDay(dayName);
     setIsOpen(true);
-
-    console.log("click");
   };
   return (
     <div className={s.card} onClick={handleOnClick}>
