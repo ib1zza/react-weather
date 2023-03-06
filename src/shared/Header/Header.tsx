@@ -42,6 +42,10 @@ const Header = () => {
     theme.changeTheme(theme.theme === Theme.LIGHT ? Theme.DARK : Theme.LIGHT);
   }
 
+  const searchQueryHandler = (query: string) => {
+    navigate(query, { replace: true });
+  };
+
   return (
     <header className={s.header}>
       <div className={s.wrapper + " " + s.logoBlock}>
@@ -51,7 +55,7 @@ const Header = () => {
         <h2 className={s.heading}>React weather</h2>
       </div>
 
-      <Search />
+      <Search onChange={searchQueryHandler} />
 
       <div className={s.wrapper}>
         <div className={s.change_theme} onClick={changeTheme}>

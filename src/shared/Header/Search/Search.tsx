@@ -2,22 +2,26 @@ import React, { useState } from "react";
 import s from "../Header.module.scss";
 import GlobalSvgSelector from "../../../assets/icons/global/GlobalSvgSelector";
 
-import { useNavigate } from "react-router-dom";
-const Search = () => {
-  const [query, setQuery] = useState<string>("");
-  const navigate = useNavigate();
+interface Props {
+  onChange: (x: any) => void;
+  value?: string;
+  placeholder?: string;
+}
+
+const Search: React.FC<Props> = ({ onChange, value, placeholder }) => {
+  const [query, setQuery] = useState<string>(value || "");
   return (
     <form
       className={s.search}
-      onSubmit={(event) => {
-        event.preventDefault();
-        navigate(query, { replace: true });
+      onSubmit={(e) => {
+        e.preventDefault();
+        onChange(query);
       }}
     >
       <GlobalSvgSelector id={"search"} />
       <input
         type="text"
-        placeholder={"Поиск"}
+        placeholder={placeholder || "Поиск"}
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
