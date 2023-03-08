@@ -11,7 +11,9 @@ import { useNavigate } from "react-router-dom";
 const Header = () => {
   const navigate = useNavigate();
   const theme = useTheme();
-  let { history } = useAppSelector((state) => state.currentWeatherSliceReducer);
+  let { history, currentCity } = useAppSelector(
+    (state) => state.currentWeatherSliceReducer
+  );
   history = [...history].reverse();
 
   const options = history.length
@@ -20,7 +22,11 @@ const Header = () => {
         label: el[0].toUpperCase().concat(el.slice(1)),
       }))
     : [];
-
+  console.log(
+    options,
+    currentCity,
+    options.filter((el) => el.value == currentCity)
+  );
   const colourStyles = {
     control: (styles: any) => ({
       ...styles,
@@ -62,10 +68,9 @@ const Header = () => {
           <GlobalSvgSelector id={"change-theme"} />
         </div>
         <Select
-          defaultValue={options[0]}
           styles={colourStyles}
           options={options}
-          placeholder={options[0]?.label}
+          placeholder={currentCity}
           closeMenuOnScroll={true}
           // @ts-ignore
           onChange={(newValue) => navigate(newValue.value, { replace: true })}

@@ -10,6 +10,7 @@ import { api } from "../../axios";
 import { getLocalStorageHistory, setLocalStorageHistory } from "../helpers";
 
 const initialState: CurrentWeather = {
+  currentCity: getLocalStorageHistory()[0] || null,
   history: getLocalStorageHistory(),
   dailyForecast: null,
   weather: null,
@@ -20,6 +21,7 @@ const initialState: CurrentWeather = {
   },
 };
 type CurrentWeather = {
+  currentCity: string | null;
   history: string[];
   dailyForecast: IDailyForecast | null;
   weather: Weather | null;
@@ -73,6 +75,7 @@ export const CurrentWeatherSlice = createSlice({
       })
       .addCase(fetchCurrentWeather.fulfilled, (state, action) => {
         state.weather = action.payload;
+        state.currentCity = action.payload.name;
 
         if (!state.history.includes(action.payload.name)) {
           state.history.push(action.payload.name);
@@ -88,6 +91,7 @@ export const CurrentWeatherSlice = createSlice({
       })
       .addCase(fetchDailyForecast.fulfilled, (state, action) => {
         state.dailyForecast = action.payload;
+
         state.isLoading = false;
       })
       .addMatcher(isError, (state, action: PayloadAction<string>) => {

@@ -38,12 +38,15 @@ const Home = () => {
     ForecastType.weekly
   );
 
+  let { history } = useAppSelector((state) => state.currentWeatherSliceReducer);
+  history = [...history].reverse();
+
   const [isOpen, setIsOpen] = useState(false);
   const [day, setDay] = useState("");
 
   useEffect(() => {
-    dispatch(fetchCurrentWeather(city || "paris"));
-    dispatch(fetchDailyForecast(city || "paris"));
+    dispatch(fetchCurrentWeather(city || history[0] || "Paris"));
+    dispatch(fetchDailyForecast(city || history[0] || "Paris"));
   }, [city]);
   const newList = createForecastObjectFromServerForecast(dailyForecast);
   return (

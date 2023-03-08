@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import s from "./Days.module.scss";
 import { Day } from "./Days";
 
 import { format, isWeekend } from "date-fns";
 import { DailyList } from "../../../../store/types/types";
-import { ModalForecastContext, useModalContext } from "../Home";
+import { useModalContext } from "../Home";
 
 interface Props {
   day: Day;
