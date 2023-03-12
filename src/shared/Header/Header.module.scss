@@ -1,14 +1,61 @@
 @import "src/styles/variables";
 
+$logo-basis: 315px;
+$select-basis: 170px;
+
+
 .header {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-areas: "logo search theme select";
+  grid-template-columns: $logo-basis 1fr 35px $select-basis;
+  grid-gap: 20px;
+
+  @media screen and (max-width: 950px){
+    grid-template-areas: "logo theme select" " search search search";
+    grid-template-columns: 1fr 35px $select-basis;
+  }
+
+  @media screen and (max-width: 530px){
+    grid-template-areas: "logo select select " "search search theme";
+    justify-content: space-between;
+    grid-template-columns: 1fr calc($select-basis - 55px) 35px ;
+
+  }
+
+  @media screen and (max-width: 470px){
+    grid-template-areas: "logo logo " "select theme" "search search";
+    justify-content: space-between;
+    grid-template-columns: 1fr 35px ;
+
+  }
   align-items: center;
   margin-top: 20px;
   margin-bottom: 30px;
 
+  .logoBlock {
+    grid-area: logo;
+  }
+  .searchBlock {
+    grid-area: search;
+  }
+  .selectBlock {
+    grid-area: select;
+    justify-content: flex-end;
+
+    @media screen and (max-width: 470px){
+      justify-content: stretch;
+      & > * {
+        width: 100%;
+      }
+    }
+  }
+  .changeThemeBlock {
+    grid-area: theme;
+  }
+
+
   .search {
-    margin: 0 20px;
+
     flex:  590px 1 1;
     display: flex;
     position: relative;
@@ -40,6 +87,7 @@
     }
   }
 
+
   .wrapper {
     &.logoBlock {
       flex-basis: 315px;
@@ -54,6 +102,8 @@
       }
     }
 
+
+
     .heading {
       font-size: 25px;
       text-transform: uppercase;
@@ -67,4 +117,13 @@
     }
 
   }
+}
+
+.select {
+  width: 170px;
+  background-color: var(--components-background-default);
+  border-radius: 10px;
+
+  //height: 50px;
+  border: none;
 }

@@ -2,9 +2,18 @@
 
 .container {
   position: relative;
-  padding: 40px;
-  max-width: 750px;
-  flex: 750px 1 1;
+  padding: 20px;
+  max-width: 600px;
+
+
+  display: flex;
+  align-items: center;
+
+  min-width: 370px;
+
+  @media screen and (max-width: 770px){
+    min-width: 280px;
+  }
 
   background-color: var(--components-background-default);
   -webkit-box-shadow: $box-shadow;
@@ -12,6 +21,14 @@
   box-shadow: $box-shadow;
   border-radius: $border-radius;
 
+
+  @media screen and (max-width: 770px) {
+    background: transparent;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    border-radius: 0;
+  }
   img {
     position: absolute;
     top: 0;
@@ -27,6 +44,9 @@
   align-items: center;
   font-size: 14px;
 
+
+
+
   &:not(:last-of-type) {
     margin-bottom: 25px;
   }
@@ -36,6 +56,7 @@
   }
 
   .indicator {
+
     flex-shrink: 0;
     width: 38px;
     height: 38px;
@@ -56,6 +77,33 @@
 
     &__value {
       color: var(--text-color-default);
+      -ms-text-align-last: left;
+      text-align-last: left;
+      @media screen and (max-width: 770px){
+        flex-basis: 100%;
+        margin-top: 10px;
+        flex-shrink: 0;
+      }
+
+      @media screen and (max-width: 520px){
+        -ms-text-align-last: center;
+        text-align-last: center;
+
+      }
+
     }
+  }
+
+  @media screen and (max-width: 520px){
+    font-size: 20px;
+    justify-content: start;
+
+    & > .indicator {
+      text-align: center;
+    }
+
+  }
+  @media screen and (max-width: 770px){
+    flex-wrap: wrap;
   }
 }

@@ -22,21 +22,16 @@ const Header = () => {
         label: el[0].toUpperCase().concat(el.slice(1)),
       }))
     : [];
-  console.log(
-    options,
-    currentCity,
-    options.filter((el) => el.value == currentCity)
-  );
+
   const colourStyles = {
     control: (styles: any) => ({
       ...styles,
       backgroundColor:
         theme.theme === Theme.DARK ? "#4F4F4F" : "rgba(71, 147, 255, 0.2)",
-      width: "194px",
-      height: "37px",
       border: "none",
       borderRadius: "10px",
       zIndex: 100,
+      height: 50,
     }),
     singleValue: (styles: any) => ({
       ...styles,
@@ -61,13 +56,19 @@ const Header = () => {
         <h2 className={s.heading}>React weather</h2>
       </div>
 
-      <Search onChange={searchQueryHandler} />
+      <div className={s.searchBlock}>
+        <Search onChange={searchQueryHandler} />
+      </div>
 
-      <div className={s.wrapper}>
-        <div className={s.change_theme} onClick={changeTheme}>
-          <GlobalSvgSelector id={"change-theme"} />
-        </div>
+      <div
+        className={s.change_theme + " " + s.changeThemeBlock}
+        onClick={changeTheme}
+      >
+        <GlobalSvgSelector id={"change-theme"} />
+      </div>
+      <div className={s.wrapper + " " + s.selectBlock}>
         <Select
+          className={s.select}
           styles={colourStyles}
           options={options}
           placeholder={currentCity}

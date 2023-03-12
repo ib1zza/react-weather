@@ -1,8 +1,27 @@
+@import "src/styles/variables";
+
 .top_wrapper {
   display: flex;
   justify-content: space-between;
   margin-bottom: 50px;
   gap: 40px;
+
+
+  @media screen and (max-width: 770px) {
+    gap: 0;
+    background: var(--components-background-default );
+    -webkit-box-shadow: $box-shadow;
+    -moz-box-shadow: $box-shadow;
+    box-shadow: $box-shadow ;
+    border-radius: $border-radius;
+  }
+
+  @media screen and (max-width: 520px) {
+    flex-direction: column;
+    &> * {
+      text-align: center;
+    }
+  }
 }
 .forecast {
   width: 100%;

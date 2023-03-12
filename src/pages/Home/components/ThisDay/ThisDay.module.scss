@@ -9,6 +9,20 @@
   -moz-box-shadow: $box-shadow;
   box-shadow: $box-shadow ;
   border-radius: $border-radius;
+
+  @media screen and (max-width: 770px) {
+    background: transparent;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    border-radius: 0;
+
+  }
+
+  @media screen and (max-width: 520px) {
+
+    max-width: 100%;
+  }
 }
 
 .top_block {
@@ -17,10 +31,27 @@
   align-items: center;
   width: 100%;
   margin-bottom: 30px;
+  @media screen and (max-width: 770px) {
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+  }
+  @media screen and (max-width: 520px) {
+    flex-direction: row-reverse;
+    justify-content: center;
 
-  svg {
+  }
+
+  @media screen and (max-width: 400px) {
+    flex-direction: column-reverse;
+    justify-content: center;
+
+  }
+  img {
     width: 119px;
     height: 119px;
+
+
   }
 
   .temp {

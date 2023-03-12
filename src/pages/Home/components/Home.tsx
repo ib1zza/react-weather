@@ -48,6 +48,11 @@ const Home = () => {
     dispatch(fetchCurrentWeather(city || history[0] || "Paris"));
     dispatch(fetchDailyForecast(city || history[0] || "Paris"));
   }, [city]);
+
+  useEffect(() => {
+    console.log("rerender home");
+  });
+
   const newList = createForecastObjectFromServerForecast(dailyForecast);
   return (
     <>
