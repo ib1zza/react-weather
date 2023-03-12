@@ -12,22 +12,30 @@ $fourth-col-flex-basis: 110px;
   background-color: var(--components-background-default);
   color: var(--text-color-default);
   padding: 20px;
-  @media screen and (max-width: 750px) {
-    
+  @media screen and (max-width: 530px) {
+
   }
   
   &:not(:last-child) {
     margin-bottom: 40px;
   }
+
   .date_info {
     display: flex;
     align-items: center;
     justify-content: space-between;
 
+    @media screen and (max-width: 530px) {
+      justify-content: center;
+    }
+
     .heading__day {
       display: flex;
       align-items: center;
       flex-basis: $first-col-flex-basis;
+      @media screen and (max-width: 530px) {
+        justify-content: center;
+      }
       .dayname {
         font-size: 55px;
 
@@ -35,9 +43,6 @@ $fourth-col-flex-basis: 110px;
           color: #ff5252;
         }
       }
-
-
-
       .heading_desc {
         display: flex;
         flex-direction: column;
@@ -46,23 +51,26 @@ $fourth-col-flex-basis: 110px;
         color: $base-color;
         line-height: 20px;
       }
-
-
     }
     .heading__temperature {
       flex-basis: $second-col-flex-basis;
+      @media screen and (max-width: 750px) {
+        display: none;
+      }
     }
     .heading__weather {
       flex-basis: $third-col-flex-basis;
-      @media screen and (max-width: 680px) {
+      @media screen and (max-width: 750px) {
+        flex-basis: $second-col-flex-basis;
+      }
+
+      @media screen and (max-width: 530px) {
         display: none;
       }
     }
     .heading__wind {
-
       flex-basis: $fourth-col-flex-basis;
-
-      @media screen and (max-width: 800px) {
+      @media screen and (max-width: 860px) {
         display: none;
       }
     }
@@ -77,6 +85,9 @@ $fourth-col-flex-basis: 110px;
     flex-direction: column;
     margin-top: 10px;
 
+    @media screen and (max-width: 530px) {
+      border-top: none;
+    }
 
 
     .period__container {
@@ -88,20 +99,30 @@ $fourth-col-flex-basis: 110px;
       grid-template-areas: "date temp weather wind";
       grid-template-columns: $first-col-flex-basis $second-col-flex-basis $third-col-flex-basis $fourth-col-flex-basis;
       
-      @media screen and (max-width: 800px) {
+      @media screen and (max-width: 860px) {
         grid-template-columns: $first-col-flex-basis $second-col-flex-basis $third-col-flex-basis ;
         grid-template-areas: "date temp weather " "date temp wind ";
       }
 
-      @media screen and (max-width: 680px) {
+      @media screen and (max-width: 750px) {
         grid-template-columns: $first-col-flex-basis $second-col-flex-basis ;
         grid-template-rows: repeat(3, 1fr);
         grid-template-areas: "date temp   " "date weather   " "date   wind ";
       }
 
+      @media screen and (max-width: 530px) {
+
+        grid-template-areas: "date" "temp " "weather " "wind" ;
+
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, auto);
+      }
+
+
+
       .period__date {
         grid-area: date;
-        //width: $first-col-flex-basis;
+
         display: grid;
         grid-auto-columns: 60px 1fr;
         grid-auto-rows: 1fr 1fr;
@@ -126,6 +147,41 @@ $fourth-col-flex-basis: 110px;
           font-size: 14px;
           grid-area: hours;
         }
+
+        @media screen and (max-width: 530px) {
+          padding: 20px 0;
+          border-top: 1px solid transparentize($base-color, 0.7);
+          grid-auto-columns: 60px 1fr 1fr;
+          //grid-auto-rows: 1fr 1fr 1fr;
+          grid-template-areas: "img dayperiod hours";
+          align-items: center;
+
+          &__image {
+            padding-right: 10px;
+            width: 60px;
+            grid-area: img;
+            overflow: hidden;
+
+            img {
+              scale: 1.4;
+
+            }
+          }
+
+          &__dayperiod {
+            font-size: 20px;
+
+          }
+
+          &__hours {
+            font-size: 20px;
+
+          }
+        }
+
+        @media screen and (max-width: 420px) {
+          grid-template-areas: "img dayperiod" " img hours";
+        }
       }
 
       .period__temp {
@@ -141,6 +197,27 @@ $fourth-col-flex-basis: 110px;
       .period__wind {
         grid-area: wind;
         //flex-basis: $fourth-col-flex-basis;
+      }
+
+      @media screen and (max-width: 530px) {
+
+        .period__temp {
+          grid-area: temp;
+          //flex-basis: $second-col-flex-basis;
+          font-size: 20px;
+        }
+
+        .period__weather {
+          grid-area: weather;
+          //flex-basis: $third-col-flex-basis;
+          font-size: 20px;
+        }
+
+        .period__wind {
+          grid-area: wind;
+          //flex-basis: $fourth-col-flex-basis;
+          font-size: 20px;
+        }
       }
     }
   }

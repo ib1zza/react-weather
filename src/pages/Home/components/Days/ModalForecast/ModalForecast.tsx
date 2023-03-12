@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import DayForecast from "../../DailyForecast/DayForecast";
 import s from "./ModalForecast.module.scss";
 import { DailyList } from "../../../../../store/types/types";

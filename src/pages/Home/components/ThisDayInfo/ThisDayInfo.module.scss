@@ -9,7 +9,7 @@
   display: flex;
   align-items: center;
 
-  min-width: 370px;
+  min-width: 350px;
 
   @media screen and (max-width: 770px){
     min-width: 280px;
@@ -85,7 +85,7 @@
         flex-shrink: 0;
       }
 
-      @media screen and (max-width: 520px){
+      @media screen and (max-width: 540px){
         -ms-text-align-last: center;
         text-align-last: center;
 
@@ -94,7 +94,7 @@
     }
   }
 
-  @media screen and (max-width: 520px){
+  @media screen and (max-width: 540px){
     font-size: 20px;
     justify-content: start;
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { DailyList, IDailyForecast } from "../../../../store/types/types";
+import { DailyList } from "../../../../store/types/types";
 
 import s from "./DailyForecast.module.scss";
 

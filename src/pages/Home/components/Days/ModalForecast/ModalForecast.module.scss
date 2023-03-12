@@ -1,29 +1,34 @@
-$opacity: 0.3;
+$opacity: 0.1;
 
 .wrapper {
   display: flex;
-  align-items:center;
+  align-items: center;
   justify-content: center;
-
   position: fixed;
+  padding:20px 0;
   top: 0;
-  right: 0;
   left: 0;
-  bottom: 0;
+  right: 0;
 
+  height: 100vh;
   z-index: 100;
   background-color: transparentize(#000, $opacity);
 
 }
 
 .content {
-
   width: 1000px;
-  
+  overflow: hidden;
+  border-radius: 15px;
   @media screen and (max-width: 1050px) {
-    width: 100%;
+    width: calc(100% - 60px);
+    margin: 0 auto;
   }
   position: relative;
+  top: 0;
+  right: 0;
+  height: 90vh;
+  overflow-y: auto;
 }
 
 .close {

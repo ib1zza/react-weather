@@ -14,8 +14,7 @@ interface Props {
 }
 const ThisDayInfo: React.FC<Props> = ({ weather }) => {
   let { pressure, temp, feels_like } = weather.main;
-  let { main: weatherType, description: weatherDescription } =
-    weather.weather[0];
+  let { description: weatherDescription } = weather.weather[0];
   let { speed, deg } = weather.wind;
   pressure *= 0.750063755419211;
   const items: Item[] = [

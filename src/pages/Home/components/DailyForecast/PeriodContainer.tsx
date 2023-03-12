@@ -22,6 +22,7 @@ const getDayPeriodFromDate = (date: string, hours?: number) => {
 
 const PeriodContainer: React.FC<Props> = ({ dailyList }) => {
   const { width } = useWindowDimensions();
+
   return (
     <div className={s.period__container}>
       <div className={s.period__date}>
@@ -62,7 +63,6 @@ const PeriodContainer: React.FC<Props> = ({ dailyList }) => {
             dailyList.wind.speed.toFixed(0) +
             " м/с "}
         </span>
-        <span className={s.period__wind__description}></span>
       </div>
     </div>
   );

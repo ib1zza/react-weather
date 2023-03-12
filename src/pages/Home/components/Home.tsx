@@ -68,6 +68,7 @@ const Home = () => {
               onSelect={(el) => setOpenedPage(el)}
               current={openedPage}
             />
+
             {openedPage === ForecastType.weekly && dailyForecast && (
               <Days forecast={newList} />
             )}
