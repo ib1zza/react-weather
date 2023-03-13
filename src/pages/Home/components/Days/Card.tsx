@@ -1,10 +1,11 @@
 import React from "react";
 import s from "./Days.module.scss";
 import { Day } from "./Days";
-
 import { format, isWeekend } from "date-fns";
 import { DailyList } from "../../../../store/types/types";
-import { useModalContext } from "../Home";
+
+import { useAppDispatch } from "../../../../hooks/store";
+import { openModal } from "../../../../store/slices/ModalSlice";
 
 interface Props {
   day: Day;
@@ -12,37 +13,33 @@ interface Props {
   date: string;
 }
 
-const getWeekDayFromDate = (date: string) => {
-  return format(new Date(date), "EEE");
-};
-
-const getNormalizedDayFromDate = (date: string) => {
-  return format(new Date(date), "PP").split(",")[0];
-};
-
 const Card: React.FC<Props> = ({ day, date, forecast }) => {
   const { day: dayName, day_info, info, temp_day, icon_id, temp_night } = day;
+
+  const dispatch = useAppDispatch();
   const icon_url =
     "http://openweathermap.org/img/wn/" +
     icon_id.slice(0, -1) +
     "d" +
     "@2x.png";
-  const { setDay, setIsOpen } = useModalContext();
+  // const { setDay, setIsOpen } = useModalContext();
+
   const handleOnClick = () => {
-    setDay(dayName);
-    setIsOpen(true);
+    dispatch(openModal(dayName));
   };
+
+  const displayWeekDay = format(new Date(dayName), "EEE");
+  const displayDay = format(new Date(day_info), "PP").split(",")[0];
+  const isWeekendDay = isWeekend(new Date(dayName));
+
   return (
     <div className={s.card} onClick={handleOnClick}>
       <div
-        className={
-          s.day__name +
-          (isWeekend(new Date(dayName)) ? " " + s.day__name_weekend : "")
-        }
+        className={s.day__name + isWeekendDay ? " " + s.day__name_weekend : ""}
       >
-        {getWeekDayFromDate(dayName)}
+        {displayWeekDay}
       </div>
-      <div className={s.day__date}>{getNormalizedDayFromDate(day_info)}</div>
+      <div className={s.day__date}>{displayDay}</div>
       <div className={s.day__img}>
         <img src={icon_url} alt="" />
       </div>

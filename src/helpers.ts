@@ -5,22 +5,15 @@ interface Forecast {
 }
 
 export const createForecastObjectFromServerForecast = (
-  forecast: IDailyForecast | null
-): Forecast | null => {
-  return forecast
-    ? forecast.list.reduce((previousValue, currentValue) => {
-        const date = currentValue.dt_txt;
-
-        const key = date.split(" ")[0];
-
-        if (previousValue.hasOwnProperty(key)) {
-          // @ts-ignore
-          previousValue[key].list.push(currentValue);
-        } else {
-          // @ts-ignore
-          previousValue[key] = { list: [currentValue] };
-        }
-        return previousValue;
-      }, {})
-    : null;
+  forecast: IDailyForecast
+): Forecast => {
+  return forecast.list.reduce<Forecast>((previousValue, currentValue) => {
+    const key = currentValue.dt_txt.split(" ")[0];
+    if (previousValue.hasOwnProperty(key)) {
+      previousValue[key].list.push(currentValue);
+    } else {
+      previousValue[key] = { list: [currentValue] };
+    }
+    return previousValue;
+  }, {});
 };

@@ -21,6 +21,7 @@ $fourth-col-flex-basis: 110px;
   }
 
   .date_info {
+    height: 55px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -122,10 +123,9 @@ $fourth-col-flex-basis: 110px;
 
       .period__date {
         grid-area: date;
-
         display: grid;
         grid-auto-columns: 60px 1fr;
-        grid-auto-rows: 1fr 1fr;
+        grid-auto-rows: 20px 20px;
         grid-template-areas: "img dayperiod" "img hours";
 
 
@@ -138,13 +138,16 @@ $fourth-col-flex-basis: 110px;
           }
         }
         &__dayperiod {
+
           font-size: 12px;
+
           color: $base-color;
           grid-area: dayperiod;
         }
 
         &__hours {
           font-size: 14px;
+
           grid-area: hours;
         }
 
@@ -181,6 +184,11 @@ $fourth-col-flex-basis: 110px;
 
         @media screen and (max-width: 420px) {
           grid-template-areas: "img dayperiod" " img hours";
+
+          &__dayperiod {
+            margin-bottom: 10px;
+
+          }
         }
       }
 

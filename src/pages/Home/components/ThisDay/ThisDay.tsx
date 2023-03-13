@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import s from "./ThisDay.module.scss";
-import GlobalSvgSelector from "../../../../assets/icons/global/GlobalSvgSelector";
+
 import { Weather } from "../../../../store/types/types";
 
 interface Props {

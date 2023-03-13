@@ -11,9 +11,7 @@ import { useNavigate } from "react-router-dom";
 const Header = () => {
   const navigate = useNavigate();
   const theme = useTheme();
-  let { history, currentCity } = useAppSelector(
-    (state) => state.currentWeatherSliceReducer
-  );
+  let { history, currentCity } = useAppSelector((state) => state.weather);
   history = [...history].reverse();
 
   const options = history.length

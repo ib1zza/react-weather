@@ -12,7 +12,9 @@ const setLocalStorageItem = <T>(key: LocalStorageKey, value: T): void => {
 };
 
 export const getLocalStorageHistory = (): string[] => {
-  return JSON.parse(getLocalStorageItem(LocalStorageKey.history) || "[]");
+  return JSON.parse(
+    getLocalStorageItem(LocalStorageKey.history) || "[]"
+  ).reverse();
 };
 
 export const setLocalStorageHistory = (data: string[]): void => {

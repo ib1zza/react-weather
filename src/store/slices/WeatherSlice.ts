@@ -20,6 +20,7 @@ const initialState: CurrentWeather = {
     message: "",
   },
 };
+
 type CurrentWeather = {
   currentCity: string | null;
   history: string[];
@@ -83,7 +84,6 @@ export const CurrentWeatherSlice = createSlice({
             Array.isArray(state.history) ? [...state.history] : [state.history]
           );
         }
-
         state.isLoading = false;
       })
       .addCase(fetchDailyForecast.pending, (state) => {
@@ -91,7 +91,6 @@ export const CurrentWeatherSlice = createSlice({
       })
       .addCase(fetchDailyForecast.fulfilled, (state, action) => {
         state.dailyForecast = action.payload;
-
         state.isLoading = false;
       })
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
@@ -101,8 +100,6 @@ export const CurrentWeatherSlice = createSlice({
       });
   },
 });
-
-export const {} = CurrentWeatherSlice.actions;
 
 const isError = (action: AnyAction) => {
   return action.type.endsWith("rejected");
