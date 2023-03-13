@@ -1,10 +1,11 @@
-import React, { createContext, useEffect, useState } from "react";
+import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { AppRoute } from "./utils/AppRoute";
 import Home from "./pages/Home/components/Home";
 import MonthStatistics from "./pages/MonthStatistics/components/MonthStatistics";
 import Header from "./shared/Header/Header";
 import Wrapper from "./shared/Wrapper/Wrapper";
+import Footer from "./shared/Footer/Footer";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             element={<MonthStatistics />}
           />
         </Routes>
+        <Footer />
       </Wrapper>
     </div>
   );
