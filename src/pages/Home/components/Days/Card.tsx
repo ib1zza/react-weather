@@ -35,7 +35,9 @@ const Card: React.FC<Props> = ({ day, date, forecast }) => {
   return (
     <div className={s.card} onClick={handleOnClick}>
       <div
-        className={s.day__name + isWeekendDay ? " " + s.day__name_weekend : ""}
+        className={
+          s.day__name + (isWeekendDay ? " " + s.day__name_weekend : "")
+        }
       >
         {displayWeekDay}
       </div>

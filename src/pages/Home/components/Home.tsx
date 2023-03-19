@@ -52,16 +52,12 @@ const Home = () => {
     dispatch(fetchDailyForecast(city || displayHistory[0] || "Paris"));
   }, [city]);
 
-  useEffect(() => {
-    console.log("rerender home");
-  });
-
   const newList: Forecast | undefined = useMemo(() => {
     if (dailyForecast) {
       return createForecastObjectFromServerForecast(dailyForecast);
     }
   }, [dailyForecast]);
-  console.log(newList);
+
   return (
     <>
       <div className={s.home}>
