@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 interface Props {
   id: string;
@@ -348,4 +348,4 @@ const GlobalSvgSelector = ({ id }: Props) => {
       return null;
   }
 };
-export default GlobalSvgSelector;
+export default memo(GlobalSvgSelector);

@@ -41,6 +41,7 @@ $select-basis: 170px;
   .selectBlock {
     grid-area: select;
     justify-content: flex-end;
+    cursor: pointer;
 
     @media screen and (max-width: 470px){
       justify-content: stretch;
@@ -123,7 +124,7 @@ $select-basis: 170px;
   width: 170px;
   background-color: var(--components-background-default);
   border-radius: 10px;
-
+  cursor: pointer;
   //height: 50px;
   border: none;
 }

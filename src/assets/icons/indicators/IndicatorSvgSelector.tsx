@@ -1,10 +1,10 @@
-import React from "react";
+import React, { memo } from "react";
 
 interface Props {
   id: string;
 }
 
-export const IndicatorSvgSelector = ({ id }: Props) => {
+const IndicatorSvgSelector = ({ id }: Props) => {
   switch (id) {
     case "temp":
       return (
@@ -191,3 +191,5 @@ export const IndicatorSvgSelector = ({ id }: Props) => {
       return null;
   }
 };
+
+export default memo(IndicatorSvgSelector);

@@ -1,5 +1,6 @@
 import React, {
   createContext,
+  memo,
   useContext,
   useEffect,
   useMemo,
@@ -20,13 +21,15 @@ import { createForecastObjectFromServerForecast } from "../../../helpers";
 import DailyForecast from "./DailyForecast/DailyForecast";
 import Tabs from "./Tabs/Tabs";
 import { DailyList } from "../../../store/types/types";
+import TopInfo from "./TopInfo/TopInfo";
+import BottomInfo from "./BottomInfo/BottomInfo";
 
 export enum ForecastType {
   weekly = "weekly",
   detailed = "10 days detailed",
 }
 
-interface Forecast {
+export interface Forecast {
   [x: string]: { list: DailyList[] };
 }
 
@@ -34,64 +37,21 @@ const Home = () => {
   const { city } = useParams();
   const dispatch = useAppDispatch();
 
-  const {
-    weather,
-    dailyForecast,
-    history: displayHistory,
-  } = useAppSelector((state) => state.weather);
-  const { forecastModalIsOpen, forecastModalDay } = useAppSelector(
-    (state) => state.modal
-  );
-
-  const [openedPage, setOpenedPage] = useState<ForecastType>(
-    ForecastType.weekly
-  );
-
   useEffect(() => {
-    dispatch(fetchCurrentWeather(city || displayHistory[0] || "Paris"));
-    dispatch(fetchDailyForecast(city || displayHistory[0] || "Paris"));
+    dispatch(fetchCurrentWeather(city || "Paris"));
+    dispatch(fetchDailyForecast(city || "Paris"));
   }, [city]);
-
-  const newList: Forecast | undefined = useMemo(() => {
-    if (dailyForecast) {
-      return createForecastObjectFromServerForecast(dailyForecast);
-    }
-  }, [dailyForecast]);
 
   return (
     <>
       <div className={s.home}>
-        <div className={s.top_wrapper}>
-          {weather && <ThisDay weather={weather} />}
-          {weather && <ThisDayInfo weather={weather} />}
-        </div>
-
-        <Tabs
-          tabs={[ForecastType.weekly, ForecastType.detailed]}
-          onSelect={(el) => setOpenedPage(el)}
-          current={openedPage}
-        />
-
-        {newList && (
-          <>
-            {openedPage === ForecastType.weekly && <Days forecast={newList} />}
-            {openedPage === ForecastType.detailed && (
-              <div className={s.forecast}>
-                <DailyForecast forecast={newList} />
-              </div>
-            )}
-          </>
-        )}
+        <TopInfo />
+        <BottomInfo />
       </div>
 
-      {newList && forecastModalDay && forecastModalIsOpen && (
-        <ModalForecast
-          forecast={newList[forecastModalDay].list}
-          date={forecastModalDay}
-        />
-      )}
+      <ModalForecast />
     </>
   );
 };
 
-export default Home;
+export default memo(Home);

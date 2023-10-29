@@ -1,51 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 
 import s from "./ThisDay.module.scss";
 
 import { Weather } from "../../../../store/types/types";
+import CurrentTime from "./lib/CurrentTime";
 
 interface Props {
-  weather: Weather;
+  cityName: string;
+  icon: string;
+  currentTemp: number;
 }
-const ThisDay: React.FC<Props> = ({ weather }) => {
-  const [time, setTime] = useState<string>(
-    new Date().toTimeString().split(" ")[0].split(":").slice(0, 2).join(":")
-  );
-  const icon_url =
-    "http://openweathermap.org/img/wn/" +
-    weather.weather[0].icon.slice(0, -1) +
-    "d" +
-    "@2x.png";
-  useEffect(() => {
-    const i = setInterval(
-      () =>
-        setTime(
-          new Date()
-            .toTimeString()
-            .split(" ")[0]
-            .split(":")
-            .slice(0, 2)
-            .join(":")
-        ),
-      60 * 1000
-    );
-    return () => clearInterval(i);
-  }, []);
+const ThisDay: React.FC<Props> = ({ icon, currentTemp, cityName }) => {
+  const icon_url = "http://openweathermap.org/img/wn/" + icon + "d" + "@2x.png";
+
   return (
     <div className={s.container}>
       <div className={s.top_block}>
         <div className={s.top_block_wrapper}>
-          <div className={s.temp}>{Math.round(weather.main.temp) + "°"}</div>
+          <div className={s.temp}>{Math.round(currentTemp) + "°"}</div>
           <div className={s.today}>Сегодня</div>
         </div>
         <img src={icon_url} alt="" />
       </div>
       <div className={s.bottom_block}>
-        <div className={s.time}>Время: {time}</div>
-        <div className={s.city}>Город: {weather.name}</div>
+        <CurrentTime />
+        <div className={s.city}>Город: {cityName}</div>
       </div>
     </div>
   );
 };
 
-export default ThisDay;
+export default memo(ThisDay);
