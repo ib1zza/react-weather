@@ -8,6 +8,7 @@ import { IDailyForecast, Weather } from "../types/types";
 import { AxiosError } from "axios";
 import { api } from "../../axios";
 import { getLocalStorageHistory, setLocalStorageHistory } from "../helpers";
+import exp from "constants";
 
 const initialState: CurrentWeather = {
   currentCity: getLocalStorageHistory()[0] || null,
@@ -50,6 +51,26 @@ export const fetchCurrentWeather = createAsyncThunk<
   }
 );
 
+export const fetchCurrentWeatherByCoords = createAsyncThunk<
+    Weather,
+    string,
+    { rejectValue: string }
+>(
+    "weather/fetchCurrentWeatherByCoords",
+    async function (coordsString, thunkAPI) {
+      const [lon, lat] = coordsString.split(" ");
+      return await api
+          .get<Weather>(`/weather?lat=${lat}&lon=${lon}`)
+          .then((res) => {
+              return res.data
+          })
+          .catch(function (error: AxiosError) {
+            console.log(error.toJSON());
+            return thunkAPI.rejectWithValue(error.message);
+          });
+    }
+);
+
 export const fetchDailyForecast = createAsyncThunk<
   IDailyForecast,
   string,
@@ -64,10 +85,36 @@ export const fetchDailyForecast = createAsyncThunk<
     });
 });
 
+export const fetchDailyForecastByCoords = createAsyncThunk<
+    IDailyForecast,
+    string,
+    { rejectValue: string }
+>("weather/fetchDailyForecastByCoords", async function (coordsString, { rejectWithValue }) {
+  const [lat, lon] = coordsString.split(" ");
+  return await api
+      .get<IDailyForecast>(`/forecast?lat=${lat}&lon=${lon}`)
+      .then((res) => res.data)
+      .catch(function (error: AxiosError) {
+        console.log(error.toJSON());
+        return rejectWithValue(error.message);
+      });
+});
+
 export const CurrentWeatherSlice = createSlice({
   initialState,
   name: "currentWeather",
-  reducers: {},
+  reducers: {
+      setCity(state, action: PayloadAction<string>) {
+          state.currentCity = action.payload;
+
+          if (!state.history.includes(action.payload)) {
+              state.history.push(action.payload);
+              setLocalStorageHistory(
+                  Array.isArray(state.history) ? [...state.history] : [state.history]
+              );
+          }
+      }
+  },
 
   extraReducers: (builder) => {
     builder
@@ -93,6 +140,16 @@ export const CurrentWeatherSlice = createSlice({
         state.dailyForecast = action.payload;
         state.isLoading = false;
       })
+        .addCase(fetchCurrentWeatherByCoords.pending, (state) => {
+          state.isLoading = true;
+        }).addCase(fetchCurrentWeatherByCoords.fulfilled, (state, action) => {
+            state.weather = action.payload;
+        })
+        .addCase(fetchDailyForecastByCoords.pending, (state) => {
+          state.isLoading = true;
+        }).addCase(fetchDailyForecastByCoords.fulfilled, (state, action) => {
+            state.dailyForecast = action.payload;
+        })
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
         console.log("Error:" + action.payload);
         state.response.message = action.payload;
@@ -104,5 +161,7 @@ export const CurrentWeatherSlice = createSlice({
 const isError = (action: AnyAction) => {
   return action.type.endsWith("rejected");
 };
+
+export const weatherActions = CurrentWeatherSlice.actions;
 
 export default CurrentWeatherSlice.reducer;

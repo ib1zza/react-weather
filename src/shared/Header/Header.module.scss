@@ -65,12 +65,15 @@ $select-basis: 170px;
 
     box-shadow: $box-shadow;
 
+    &.noBottomBorder {
+      border-radius: $border-radius $border-radius 0 0;
+    }
     svg {
       position: absolute;
       top: calc(50% - 13px);
       left: 20px;
       height: 26px;
-      color: #4793ff;
+      color: var(--primary-color);
     }
 
     input {
@@ -127,4 +130,12 @@ $select-basis: 170px;
   cursor: pointer;
   //height: 50px;
   border: none;
+}
+
+.predicted {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 99;
+  left: 0;
 }

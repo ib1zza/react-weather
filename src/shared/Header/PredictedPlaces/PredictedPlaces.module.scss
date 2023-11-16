@@ -1,0 +1,28 @@
+.container {
+  background-color: var(--components-background-default);
+  padding: 10px 0;
+  border-radius: 0 0 20px 20px;
+  box-shadow: var(--card-shadow-default);
+  transition: 0.2s ease;
+
+  .loading {
+    font-size: 18px;
+    text-align: center;
+    color: var(--primary-color);
+    padding: 10px;
+  }
+
+  .item {
+    cursor: pointer;
+    padding: 10px 20px;
+    font-size: 18px;
+    transition: 0.2s ease-in-out;
+
+    &:hover {
+      color: var(--primary-color);
+      transition: 0.2s ease-in-out;
+      background-color: var(--body-background-default);
+      opacity: 0.7;
+    }
+  }
+}

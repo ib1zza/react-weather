@@ -5,14 +5,14 @@ import { useAppSelector } from "../../../../hooks/store";
 import s from "../Home.module.scss";
 
 const TopInfo = () => {
-  const { weather } = useAppSelector((state) => state.weather);
+  const { weather, currentCity } = useAppSelector((state) => state.weather);
 
   return (
     <div className={s.top_wrapper}>
       {weather && (
         <ThisDay
           icon={weather.weather[0].icon.slice(0, -1)}
-          cityName={weather.name}
+          cityName={currentCity || ""}
           currentTemp={weather.main.temp}
         />
       )}

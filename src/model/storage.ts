@@ -4,8 +4,16 @@ export const storage = {
   },
   getItem: (name: string) => {
     const item = localStorage.getItem(name);
-    if (item) {
-      return JSON.parse(item);
+    console.log(item, typeof item)
+
+
+
+    try {
+      return JSON.parse(localStorage.getItem(name) || "null");
     }
+    catch {
+      return null;
+    }
+
   },
 };
