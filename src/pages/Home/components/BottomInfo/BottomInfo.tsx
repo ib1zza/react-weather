@@ -20,6 +20,8 @@ const BottomInfo = () => {
       return createForecastObjectFromServerForecast(dailyForecast);
     }
   }, [dailyForecast]);
+
+  console.log("gereratedForecast", gereratedForecast)
   return (
     <>
       <Tabs

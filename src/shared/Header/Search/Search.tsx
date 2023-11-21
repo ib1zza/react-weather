@@ -53,7 +53,8 @@ const Search: React.FC<Props> = ({ value, placeholder }) => {
       dispatch(fetchCurrentWeatherByCoords(coords));
       dispatch(fetchDailyForecastByCoords(coords));
       dispatch(weatherActions.setCity(name))
-      setFocused(false);
+    setQuery(name);
+    setFocused(false);
   }, [])
 
   console.log("focused", focused)
@@ -77,7 +78,7 @@ const Search: React.FC<Props> = ({ value, placeholder }) => {
         onChange={(e) => setQuery(e.target.value)}
       />
 
-      <div className={s.predicted}>
+      <div className={s.predicted} onClick={e => e.stopPropagation()}>
         {predictionShowed && <PredictedPlaces onSelect={handleSelect} query={query}/>}
       </div>
     </form>

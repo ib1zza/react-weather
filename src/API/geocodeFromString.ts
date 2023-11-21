@@ -1,4 +1,3 @@
-
 export interface ServerResponse {
     response: Response
 }
@@ -102,8 +101,8 @@ export interface PointItem {
     coords: string
 }
 
-export async function geocodeFromString (query: string) {
-    const  url = process.env.REACT_APP_GEOCODER_URL as string;
+export async function geocodeFromString(query: string) {
+    const url = process.env.REACT_APP_GEOCODER_URL as string;
     const token = process.env.REACT_APP_GEOCODER_KEY as string;
 
     const params = new URLSearchParams({
@@ -111,7 +110,7 @@ export async function geocodeFromString (query: string) {
         "geocode": query,
         "format": "json"
     })
-    let res:ServerResponse = await fetch(url + "/?" + params)
+    let res: ServerResponse = await fetch(url + "/?" + params)
         .then(response => response.json())
 
     console.log(res);
@@ -120,11 +119,26 @@ export async function geocodeFromString (query: string) {
 
     const arrayWithCoords = arr.map((el) => {
         return {
-            name: el.GeoObject.metaDataProperty.GeocoderMetaData.text,
+            name: el.GeoObject.metaDataProperty.GeocoderMetaData.AddressDetails.Country.CountryName
+                +
+                ", "
+                +
+                el.GeoObject.metaDataProperty.GeocoderMetaData.AddressDetails.Country.AdministrativeArea.AdministrativeAreaName,
             coords: el.GeoObject.Point.pos
         }
     })
+        .filter((obj) =>
+            query.split(" ")
+                .every(substr =>
+                    obj.name.toLowerCase().includes(substr.toLowerCase())))
+
     console.log(arrayWithCoords)
 
-    return arrayWithCoords;
+
+    const uniqueData = Array.from(new Set(arrayWithCoords.map(item => item.name)))
+        .map(name => arrayWithCoords.find(item => item.name === name));
+
+    console.log(uniqueData);
+
+    return uniqueData;
 }

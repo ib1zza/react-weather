@@ -42,7 +42,7 @@ export const fetchCurrentWeather = createAsyncThunk<
   "weather/fetchCurrentWeather",
   async function (cityName, { rejectWithValue }) {
     return await api
-      .get<Weather>(`/weather?q=${cityName}`)
+      .get<Weather>(`/weather?q=${cityName}&units=metric`)
       .then((res) => res.data)
       .catch(function (error: AxiosError) {
         console.log(error.toJSON());
@@ -60,7 +60,7 @@ export const fetchCurrentWeatherByCoords = createAsyncThunk<
     async function (coordsString, thunkAPI) {
       const [lon, lat] = coordsString.split(" ");
       return await api
-          .get<Weather>(`/weather?lat=${lat}&lon=${lon}`)
+          .get<Weather>(`/weather?lat=${lat}&lon=${lon}&units=metric`)
           .then((res) => {
               return res.data
           })
@@ -77,7 +77,7 @@ export const fetchDailyForecast = createAsyncThunk<
   { rejectValue: string }
 >("weather/fetchDailyForecast", async function (cityName, { rejectWithValue }) {
   return await api
-    .get<IDailyForecast>(`/forecast?q=${cityName} `)
+    .get<IDailyForecast>(`/forecast?q=${cityName}&units=metric `)
     .then((res) => res.data)
     .catch(function (error: AxiosError) {
       console.log(error.toJSON());
@@ -90,9 +90,9 @@ export const fetchDailyForecastByCoords = createAsyncThunk<
     string,
     { rejectValue: string }
 >("weather/fetchDailyForecastByCoords", async function (coordsString, { rejectWithValue }) {
-  const [lat, lon] = coordsString.split(" ");
+  const [lon, lat] = coordsString.split(" ");
   return await api
-      .get<IDailyForecast>(`/forecast?lat=${lat}&lon=${lon}`)
+      .get<IDailyForecast>(`/forecast?lat=${lat}&lon=${lon}&units=metric`)
       .then((res) => res.data)
       .catch(function (error: AxiosError) {
         console.log(error.toJSON());

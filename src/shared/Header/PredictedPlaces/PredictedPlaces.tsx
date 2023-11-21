@@ -14,7 +14,7 @@ const PredictedPlaces = memo(({query, onSelect}: Props) => {
         if(query.trim().length > 2)
             setLoading(true)
         geocodeFromString(query).then(res => {
-            setPlaces(res.slice(0, 5));
+            setPlaces(res.slice(0, 7));
         }).finally(() => setLoading(false));
 
     }, [query]);
@@ -29,7 +29,7 @@ const PredictedPlaces = memo(({query, onSelect}: Props) => {
             }
             {
                 places.map(el => (
-                    <div className={s.item} onClick={() => onClick(el.coords, el.name)}>
+                    <div key={el.name} className={s.item} onClick={() => onClick(el.coords, el.name)}>
                         {el.name}
                     </div>
                 ))

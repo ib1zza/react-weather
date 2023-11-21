@@ -1,4 +1,3 @@
-import React, {useEffect} from "react";
 import {Route, Routes, useLocation} from "react-router-dom";
 import { AppRoute } from "./utils/AppRoute";
 import Home from "./pages/Home/components/Home";

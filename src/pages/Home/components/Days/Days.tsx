@@ -37,7 +37,7 @@ export const Days: React.FC<Props> = ({ forecast }) => {
 
     const info = day_obj?.weather[0]?.main || night_obj?.weather[0]?.main;
     const temp_day = day_obj?.main?.temp || night_obj?.main?.temp;
-    const temp_night = night_obj?.main?.temp;
+    const temp_night = night_obj?.main?.temp || temp_day;
     const icon_id = day_obj?.weather[0]?.icon || night_obj?.weather[0]?.icon;
 
     acc.push({
