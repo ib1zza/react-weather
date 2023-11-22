@@ -129,7 +129,7 @@ export async function geocodeFromString(query: string) {
     })
         .filter((obj) =>
             query.split(" ")
-                .every(substr =>
+                .some(substr =>
                     obj.name.toLowerCase().includes(substr.toLowerCase())))
 
     console.log(arrayWithCoords)

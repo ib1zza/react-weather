@@ -9,7 +9,7 @@ import {
   fetchDailyForecast,
   fetchDailyForecastByCoords, weatherActions
 } from "../../../store/slices/WeatherSlice";
-import {useAppDispatch} from "../../../hooks/store";
+import {useAppDispatch, useAppSelector} from "../../../hooks/store";
 
 interface Props {
   value?: string;
@@ -21,8 +21,21 @@ const Search: React.FC<Props> = ({ value, placeholder }) => {
   const navigate = useNavigate();
   const [focused, setFocused] = useState(false);
 
+  const city = useAppSelector(state => state.weather.currentCity)
+
+
+  useEffect(() => {
+    setQuery(city || "");
+  }, [city]);
+
   function onChange(query: string) {
     navigate(query, { replace: true });
+  }
+
+  function onKeyPress(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "Enter") {
+      navigate(query, { replace: true });
+    }
   }
 
   useEffect(() => {
@@ -55,7 +68,7 @@ const Search: React.FC<Props> = ({ value, placeholder }) => {
       dispatch(weatherActions.setCity(name))
     setQuery(name);
     setFocused(false);
-  }, [])
+  }, []);
 
   console.log("focused", focused)
 

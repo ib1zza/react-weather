@@ -28,6 +28,10 @@ const PredictedPlaces = memo(({query, onSelect}: Props) => {
                 <div className={s.loading}>Загрузка...</div>
             }
             {
+                places.length === 0 && !loading &&
+                <div className={s.loading}>Ничего не найдено</div>
+            }
+            {
                 places.map(el => (
                     <div key={el.name} className={s.item} onClick={() => onClick(el.coords, el.name)}>
                         {el.name}

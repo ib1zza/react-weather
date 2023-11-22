@@ -1,12 +1,7 @@
 import React from "react";
 import s from "./Header.module.scss";
 import GlobalSvgSelector from "../../assets/icons/global/GlobalSvgSelector";
-import Select from "react-select";
-import { useTheme } from "../../hooks/useTheme";
-import { Theme } from "../../context/ThemeContext";
 import Search from "./Search/Search";
-import { useAppSelector } from "../../hooks/store";
-import { useNavigate } from "react-router-dom";
 import ThemeToggler from "../../pages/Home/components/ThemeToggler/ThemeToggler";
 import CitySelector from "../../pages/Home/components/CitySelector/CitySelector";
 

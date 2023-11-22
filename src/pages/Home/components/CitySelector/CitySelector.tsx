@@ -4,7 +4,8 @@ import Select from "react-select";
 import { Theme } from "../../../../context/ThemeContext";
 import { useTheme } from "../../../../hooks/useTheme";
 import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../../../hooks/store";
+import {useAppDispatch, useAppSelector} from "../../../../hooks/store";
+import {weatherActions} from "../../../../store/slices/WeatherSlice";
 
 const CitySelector = () => {
   const { theme } = useTheme();
@@ -36,6 +37,7 @@ const CitySelector = () => {
     }),
   };
 
+  const dispatch = useAppDispatch();
   return (
     <Select
       className={s.select}
@@ -44,7 +46,11 @@ const CitySelector = () => {
       placeholder={currentCity}
       closeMenuOnScroll={true}
       // @ts-ignore
-      onChange={(newValue) => navigate(newValue.value, { replace: true })}
+      onChange={(newValue) => {
+        const newCity = newValue?.value as string;
+        navigate(newCity, { replace: true });
+        dispatch(weatherActions.setCity(newCity));
+      }}
     />
   );
 };
