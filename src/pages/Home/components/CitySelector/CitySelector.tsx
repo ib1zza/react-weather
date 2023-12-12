@@ -5,7 +5,12 @@ import { Theme } from "../../../../context/ThemeContext";
 import { useTheme } from "../../../../hooks/useTheme";
 import { useNavigate } from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../../../hooks/store";
-import {weatherActions} from "../../../../store/slices/WeatherSlice";
+import {
+    fetchCurrentWeatherByCoords,
+    fetchDailyForecastByCoords,
+    weatherActions
+} from "../../../../store/slices/WeatherSlice";
+import {IHistoryItem} from "../../../../store/types/types";
 
 const CitySelector = () => {
   const { theme } = useTheme();
@@ -17,7 +22,7 @@ const CitySelector = () => {
   const options = history.length
     ? history.map((el) => ({
         value: el,
-        label: el[0].toUpperCase().concat(el.slice(1)),
+        label: el.name,
       }))
     : [];
 
@@ -38,6 +43,17 @@ const CitySelector = () => {
   };
 
   const dispatch = useAppDispatch();
+
+  const onSelect = (newValue: IHistoryItem) => {
+    const newCity = newValue.name;
+    const {lat, lon} = newValue.coords;
+    navigate(newCity, { replace: true });
+      dispatch(fetchCurrentWeatherByCoords([lon, lat].join(' ')));
+      dispatch(fetchDailyForecastByCoords([lon, lat].join(' ')));
+      // dispatch(weatherActions.setCity(newCity))
+    dispatch(weatherActions.setCity(newCity));
+  };
+
   return (
     <Select
       className={s.select}
@@ -47,9 +63,7 @@ const CitySelector = () => {
       closeMenuOnScroll={true}
       // @ts-ignore
       onChange={(newValue) => {
-        const newCity = newValue?.value as string;
-        navigate(newCity, { replace: true });
-        dispatch(weatherActions.setCity(newCity));
+          onSelect(newValue?.value as IHistoryItem);
       }}
     />
   );

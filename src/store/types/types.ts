@@ -127,3 +127,11 @@ export interface IDailyForecast {
   list: DailyList[];
   city: DailyCity;
 }
+
+export interface IHistoryItem {
+  name: string;
+  coords: {
+    lat: number;
+    lon: number;
+  };
+}

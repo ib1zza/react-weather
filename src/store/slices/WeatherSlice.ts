@@ -4,14 +4,14 @@ import {
   createSlice,
   PayloadAction,
 } from "@reduxjs/toolkit";
-import { IDailyForecast, Weather } from "../types/types";
+import {IDailyForecast, IHistoryItem, Weather} from "../types/types";
 import { AxiosError } from "axios";
 import { api } from "../../axios";
 import { getLocalStorageHistory, setLocalStorageHistory } from "../helpers";
 import exp from "constants";
 
 const initialState: CurrentWeather = {
-  currentCity: getLocalStorageHistory()[0] || null,
+  currentCity: getLocalStorageHistory()[0]?.name || null,
   history: getLocalStorageHistory(),
   dailyForecast: null,
   weather: null,
@@ -24,7 +24,7 @@ const initialState: CurrentWeather = {
 
 type CurrentWeather = {
   currentCity: string | null;
-  history: string[];
+  history: IHistoryItem[];
   dailyForecast: IDailyForecast | null;
   weather: Weather | null;
   isLoading: boolean;
@@ -107,8 +107,8 @@ export const CurrentWeatherSlice = createSlice({
       setCity(state, action: PayloadAction<string>) {
           state.currentCity = action.payload;
 
-          if (!state.history.includes(action.payload)) {
-              state.history.push(action.payload);
+          if (!state.history.map((item) => item.name).includes(action.payload)) {
+              // state.history.push(action.payload);
               setLocalStorageHistory(
                   Array.isArray(state.history) ? [...state.history] : [state.history]
               );
@@ -125,8 +125,15 @@ export const CurrentWeatherSlice = createSlice({
         state.weather = action.payload;
         state.currentCity = action.payload.name;
 
-        if (!state.history.includes(action.payload.name)) {
-          state.history.push(action.payload.name);
+        if (!state.history.map((item) => item.name).includes(action.payload.name)) {
+            const newItem: IHistoryItem = {
+                name: action.payload.name,
+                coords: action.payload.coord
+            };
+
+            console.log(newItem)
+          state.history.push(newItem);
+
           setLocalStorageHistory(
             Array.isArray(state.history) ? [...state.history] : [state.history]
           );

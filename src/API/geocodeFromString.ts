@@ -80,6 +80,17 @@ export interface Country {
 
 export interface AdministrativeArea {
     AdministrativeAreaName: string
+    SubAdministrativeArea?: SubAdministrativeArea;
+    Locality?: Locality
+}
+
+export interface SubAdministrativeArea {
+    SubAdministrativeAreaName: string;
+    Locality: Locality
+}
+
+export interface Locality {
+    LocalityName: string
 }
 
 export interface BoundedBy2 {
@@ -118,19 +129,50 @@ export async function geocodeFromString(query: string) {
     const arr = res.response.GeoObjectCollection.featureMember;
 
     const arrayWithCoords = arr.map((el) => {
+        const details = el.GeoObject.metaDataProperty.GeocoderMetaData.AddressDetails;
+
+        console.log(details.Country)
+        const countryName = details.Country.CountryName;
+        const cityName = details.Country?.AdministrativeArea?.AdministrativeAreaName;
+
+        const isDistrict = details.Country?.AdministrativeArea?.SubAdministrativeArea?.SubAdministrativeAreaName || details.Country?.AdministrativeArea?.Locality?.LocalityName;
+        const LocalityName = details.Country?.AdministrativeArea?.Locality?.LocalityName || details.Country?.AdministrativeArea?.SubAdministrativeArea?.Locality?.LocalityName
+            ;
+
+        console.log(isDistrict, LocalityName)
+
+
+        if(isDistrict) {
+            return {
+                name: countryName
+                    +
+                    ", "
+                    +
+                    LocalityName,
+                coords: el.GeoObject.Point.pos
+            }
+        }
+        if(cityName) {
+            return {
+                name: countryName
+                    +
+                    ", "
+                    +
+                    details.Country?.AdministrativeArea?.AdministrativeAreaName,
+                coords: el.GeoObject.Point.pos
+            }
+        }
+
         return {
-            name: el.GeoObject.metaDataProperty.GeocoderMetaData.AddressDetails.Country.CountryName
-                +
-                ", "
-                +
-                el.GeoObject.metaDataProperty.GeocoderMetaData.AddressDetails.Country.AdministrativeArea.AdministrativeAreaName,
+            name: details.Country.AddressLine,
             coords: el.GeoObject.Point.pos
         }
+
     })
         .filter((obj) =>
             query.split(" ")
                 .some(substr =>
-                    obj.name.toLowerCase().includes(substr.toLowerCase())))
+                    obj.name.toLowerCase().includes(substr.toLowerCase())) && !obj.name.includes("undefined"))
 
     console.log(arrayWithCoords)
 
